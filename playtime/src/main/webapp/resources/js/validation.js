@@ -266,3 +266,25 @@ var joinValidate = {
 		}
 	}
 }
+function idCheck(id){
+	var return_val = true;
+	
+	$.ajax({
+		type:'POST',
+		url: 'idoverlap?id='+id,
+		async: false,
+		success:function(data){
+			console.log(data);
+			if(data >= 1) {
+				return_val = true;
+			}else {
+				return_val = false;
+			}
+		},
+		error: function(){
+			alert('System ERROR:(');
+		}
+	});
+	return return_val;
+	
+} 

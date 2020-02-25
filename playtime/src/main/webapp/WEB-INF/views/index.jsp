@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<style type="text/css">
 		div {
 			/*border: 1px solid red;*/
@@ -110,7 +111,7 @@
 		}
 		.sale > h3 {
 			color: white;
-			height: 10px;
+			height: 35px;
 		}
 		.sale_game {
 			width: 100%;
@@ -129,27 +130,27 @@
 			margin-top: 0px;
 		}
 		.journey{
-			background-image: url(${path}/resource/img/journey.jpg);
+			background-image: url(${path}/resources/img/journey.jpg);
 			width: 263px;
 			height: 100%;		
 		}
 		.portal {
-			background-image: url(${path}/resource/img/portal.jpg);
+			background-image: url(${path}/resources/img/portal.jpg);
 			width: 263px;
 			height: 100%;
 		}
 		.gris{
-			background-image: url(${path}/resource/img/gris.jpg);
+			background-image: url(${path}/resources/img/gris.jpg);
 			width: 263px;
 			height: 100%;
 		}
 		.ori{
-			background-image: url(${path}/resource/img/ori.jpg);
+			background-image: url(${path}/resources/img/ori.jpg);
 			width: 263px;
 			height: 100%;
 		}
 		.shadow{
-			background-image: url(${path}/resource/img/shadow.jpg);
+			background-image: url(${path}/resources/img/shadow.jpg);
 			width: 263px;
 			height: 100%;
 		}
@@ -220,31 +221,31 @@
 		<div class="slideshow-container">
 			<div class="mySlides fade">
 			  <div class="numbertext">1 / 5</div>
-			  	<img src="${path}/resource/img/저니1.jpg" style="width:100%">
+			  	<img src="${path}/resources/img/저니1.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 
 			<div class="mySlides fade">
 			  <div class="numbertext">2 / 5</div>
-			  	<img src="${path}/resource/img/포탈.jpg" style="width:100%">
+			  	<img src="${path}/resources/img/포탈.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 
 			<div class="mySlides fade">
 			  <div class="numbertext">3 / 5</div>
-				  <img src="${path}/resource/img/그리스.jpg" style="width:100%">
+				  <img src="${path}/resources/img/그리스.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 
 			<div class="mySlides fade">
 			  <div class="numbertext">4 / 5</div>
-				  <img src="${path}/resource/img/오리.jpg" style="width:100%">
+				  <img src="${path}/resources/img/오리.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 
 			<div class="mySlides fade">
 			  <div class="numbertext">5 / 5</div>
-				  <img src="${path}/resource/img/거상.jpg" style="width:100%">
+				  <img src="${path}/resources/img/거상.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 		</div>
@@ -265,6 +266,43 @@
 
 
 
+	<div class="sale">
+		<h3>인기게임</h3>			
+		<div class="sale_game">
+			<div class="game journey"></div>	
+			<div class="game portal"></div>
+			<div class="game gris"></div>
+			<div class="game ori"></div>
+			<div class="game shadow"></div>
+		</div>
+		
+		<div class="sale_game_name">
+			<div class="game_name">journey</div>
+			<div class="game_name">portal</div>
+			<div class="game_name">gris</div>
+			<div class="game_name">ori and the blind forest</div>
+			<div class="game_name">shadow of colossus</div>
+		</div>
+
+		<div class="sale_game_info">
+			<div class="game_info">힐링,모험,협동</div>
+			<div class="game_info">퍼즐,두뇌,전략</div>
+			<div class="game_info">모험,스토리</div>
+			<div class="game_info">공포,모험</div>
+			<div class="game_info">전략,액션,모험</div>			
+		</div>
+
+		<div class="sale_game_price">
+			<div class="game_price">10000</div>
+			<div class="game_price">5000</div>
+			<div class="game_price">12000</div>
+			<div class="game_price">23000</div>
+			<div class="game_price">34000</div>			
+		</div>
+	
+			
+	</div>
+	
 	<div class="sale">
 		<h3>할인게임</h3>			
 		<div class="sale_game">
