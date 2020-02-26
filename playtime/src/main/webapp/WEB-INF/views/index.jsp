@@ -28,7 +28,7 @@
 		}
 		.carousel_all {
 			width: 1400px;
-			margin: 0 auto;
+			margin: 65px auto;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -214,10 +214,13 @@
 			color: white;
 			text-align: center;
 		}
+		
+		
 	</style>
 </head>
-<body>
-<div class="carousel_all">
+<body>	
+<%@ include file="include/modal.jsp" %>
+	<div class="carousel_all">
 		<div class="slideshow-container">
 			<div class="mySlides fade">
 			  <div class="numbertext">1 / 5</div>

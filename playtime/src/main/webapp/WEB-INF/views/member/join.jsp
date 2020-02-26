@@ -338,6 +338,29 @@ ul {
 		padding: 10px;
 		cursor: pointer;
 	}
+	/* 로딩창 애니메이션*/
+	#back{
+		position: fixed;
+		z-index: 1200;
+		background-color: rgba(0,0,0,0.4);
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+		top:0;
+		left: 0;
+		display: none;
+		align-items:center;
+		justify-content:center;
+	}
+	.loading_img{
+	 	animation: ani_loading 0.8s infinite linear;
+	 	font-size: 70px;
+	 	color: #EBA444;
+	}
+	@keyframes ani_loading{
+		from {-webkit-transform: rotate(0deg);}
+		to 	 {-webkit-transform: rotate(359deg);}
+	}
 
 
 </style>
@@ -489,7 +512,7 @@ ul {
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function() {
-
+		FunLoadingBarStart();
 		// 비정상적인 접근인지 판단 
 		var flag = '${flag}';
 		if (flag == 0) {
@@ -684,6 +707,8 @@ ul {
 				// $('btn_join').prop('disabledd', true);
 				$('#btn_join').css('cursor', 'no-drop');
 			}
+			
+			
 		});
 
 		// 회원가입 버튼 클릭
@@ -699,8 +724,11 @@ ul {
 					}
 					// printCheckArr(checkArr);
 
-					if (checkAll) {
+					if (invalidAll) {
+						FunLoadingBarStart(); //로딩바 생성
+
 						alert('회원가입 성공!')
+						
 						$('#frm_member').submit();
 					} else {
 						alert('유효성 체크를 진행해주세요!')
@@ -711,8 +739,23 @@ ul {
 
 					// 하나라도 false이면
 				});
+		
+				
+							
 
 		});
+	
+	//로딩바 출력
+	function FunLoadingBarStart(){
+		var loadingBarImage = ''; // 가운데 띄워 줄 이미지
+		loadingBarImage += "<div id = 'back'>";
+		loadingBarImage += "<div id ='loading'>";
+		loadingBarImage += "<i class='fas fa-fan loading_img'></i>";
+		loadingBarImage += "</div></div>";
+		$('body').append(loadingBarImage);
+		$('#back').css('display', 'flex');
+		$('#loadingImg').show();
+	}
 
 	function ckDesign(code, desc, line, msg) {
 		if (code == 0 || code == 10) { 							//통과 o 

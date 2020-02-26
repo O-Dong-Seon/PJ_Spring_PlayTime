@@ -12,6 +12,9 @@
 	crossorigin="anonymous"></script>
 <style type="text/css">
 div.header_wrap {
+	position: fixed;
+	top: 0;
+	z-index:100;
 	width: 100%;
 	background-color: white;
 	box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0
@@ -636,20 +639,7 @@ div.header_content {
 <script type="text/javascript">
 	
 	
-	//Scroll TOP 버튼 생성 및 TOP으로 이동
-	$(window).scroll(function(){   // 스크롤이 조금이라도 움직이면
-		if(document.body.scrolltop > 80 || document.documentElement.scrollTop > 80){
-			$('.top_btn').fadeIn().css("display","flex");  
-			/* display를 잔상효과처럼 천천히 나오게 함 / fadeIn은 기본적으로 display가 block이 됨 */
-		}else{
-			$('.top_btn').fadeOut();  /*나오게 한 display를 잔상효과처럼 천천히 사라지게함*/
-		}
-	});
-		$('.top_btn').click(function(){
-			$('html, body').animate({scrollTop : 0}, 800);
-		})
-
-	});
+	
 
 
 	/* $(document).on(); 항상 이것먼저 만들어두는게 좋음 */

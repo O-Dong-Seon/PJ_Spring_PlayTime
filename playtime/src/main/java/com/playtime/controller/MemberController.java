@@ -45,6 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+	//@Autowired 는 사용해줄때마다 각각 따로 써야함
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
@@ -52,9 +54,10 @@ public class MemberController {
 	private MailService mailService;
 	
 	private MemberDAO mDao;	
-	@Autowired
-	MemberService mService;
 	
+	@Autowired // Spring에서 의존성 주입 하는법
+	MemberService mService;  // 의존성주입이 필요
+			
 	/*
 	 * SessionAttributes를 사용하기 위해서는
 	 * 반드시 해당 변수를 생성하는 method가 controller에 있어야 하고
@@ -117,14 +120,17 @@ public class MemberController {
 														SessionStatus sessionStatus,
 														HttpServletRequest request,
 														RedirectAttributes rttr) {
+		// view단에서 Controller단으로 올바르게 이동결과값 확인(URL  GET SET확인)
 		log.info(">>>>> MEMBER/JOIN PAGE POST 출력");
+		
+		// view단에서 전송된 데이터가 잘 전달됐는지 확인 
 		log.info(mDto.toString());
 		
 		log.info("password: " + mDto.getPw()); // 사용자 입력PW값
 		// 1. 사용자 암호 hash 변환
-		String encPw = passwordEncoder.encode(mDto.getPw());
+		String encPw = passwordEncoder.encode(mDto.getPw()); 
 		mDto.setPw(encPw);
-		log.info("Password(+Hash): " + mDto.getPw());
+		log.info("Password(+Hash): " + mDto.getPw()); 
 		
 		
 		// 2.DB에 회원등록
@@ -142,8 +148,13 @@ public class MemberController {
 		// session에 담긴 값을 clear 해주어야 한다.
 		sessionStatus.setComplete();
 		
-		return "redirect:/";
+		// 회원가 lashAttribute("id", mDto.getID());
+		rttr.addFlashAttribute("id",mDto.getId()); 
+		rttr.addFlashAttribute("email", mDto.getEmail());
+		rttr.addFlashAttribute("key", "join");
 		
+		return "redirect:/"; 
+		// 
 	}
 	
 	// 회원가입 후 email 인증

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.playtime.domain.MemberDTO;
 import com.playtime.persistence.MemberDAO;
 
-@Service
+@Service 
 public class MemberServiceImpl implements MemberService {
 		
 		@Autowired
