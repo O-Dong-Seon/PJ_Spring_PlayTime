@@ -284,12 +284,12 @@ div.header_content {
 
 .pass_search {
 	justify-content: center;
-	margin-bottom: 12px;
+	margin-bottom: 0;
 	margin-top: -13px;
 	font-size: 16px;
 }
 
-.login_btn>button {
+.login_btn > button {
 	border: 0px;
 	height: 36px;
 	display: inline-block;
@@ -457,6 +457,13 @@ div.header_content {
 	background-color: #ffffff;
 	display: none; 
 }
+.err_content {
+		font-size: 13px;
+		color: red;
+		margin-top: -12px;
+	    display:none;
+		
+}
 
 /*484 x 623*/
 </style>
@@ -481,21 +488,22 @@ div.header_content {
 				</div>
 				<form>
 					<div class="login_box">
-						<form>
+						<form class="frm_login" onsubmit="return false;">
+						<div class="err_content"></div>
 							<div class="login_content">
-								<div class="login_t" id="login_id">
-									<input type="email" placeholder="이메일" required>
+								<div class="login_t" id="naver_id">
+									<input type="email" placeholder="이메일" id ="login_id">
 								</div>
-								<div class="login_t" id="login_pw">
+								<div class="login_t" id="naver_pw">
 									<input type="text" placeholder="비밀번호" required minlength="6"
-										maxlength="18"> <span class="pw_eye"> <i
+										maxlength="18" id="login_pw"> <span class="pw_eye"> <i
 										class="fas fa-eye-slash"></i>
 									</span>
 								</div>
 							</div>
 							<div class="pass_search">비밀번호를 잊으셨나요?</div>
 							<div class="login_btn">
-								<button type="submit">로그인</button>
+								<button type="submit" id="btn-login">로그인</button>
 							</div>
 						</form>
 					</div>
@@ -621,13 +629,18 @@ div.header_content {
 							<a href="#"><i class="fas fa-cart-arrow-down"></i></a>
 						</div>
 					</div>
-
-					<div>
-						<button type="button" class="btn btn-basic login_open">로그인</button>
-					</div>
-					<div>
-						<button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button>
-					</div>
+					
+					
+					<c:choose>
+						<c:when test="${empty sessionScope.userid}">
+								<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+								<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button></div>
+						</c:when>
+	
+						<c:otherwise>	
+							<div><button type="button" class="btn btn-basic login_out">로그아웃</button></div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -732,5 +745,46 @@ div.header_content {
 	$(document).on('click', '#header_btn_join', function() {
 		location.href = "${path}/member/constract";
 	});
+	
+	// LOGIM 버튼 클릭시 AJAX 동작
+	$(document).on('click','#btn-login',function(){
+		//id 와 pw값 받아와서 null이면 작동X
+		var id = $('#login_id').val();
+		var pw = $('#login_pw').val();
+		
+		if(id != '' && pw != '' && id.length !=0 && pw.length != 0 ){
+			$.ajax({
+				url:'${path}/login/in',
+				type: 'POST',
+				data: 'id=' +id+'&pw='+pw,
+				success: function(data){
+				// alert('System Success:')
+					console.log(data);
+					
+				if(data == 0) {
+					$('.err_content').css('display', 'block')
+					.text('아이디 및 비밀번호를 확인하거나 계정을 생성하세요');
+				} else if(data == 1){
+					
+				} else if(data == 2)
+					$('.err_content').css('display', 'block')
+					.text('이메일 인증 후 로그인 할 수 있습니다.');
+				},
+				error: function() {
+					alert('System Error:/');
+				}
+			});
+		}
+
+		
+		
+	});
+	
+	// Header가입하기 버튼 클릭시 동의 페이지 이동
+	
+	$(document).on('click', '#header_btn_join', function(){
+		location.href="${path}/member/constract";
+	});
+	
 </script>
 </html>

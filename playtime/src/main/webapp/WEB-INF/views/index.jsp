@@ -162,15 +162,6 @@
 			font-size: 25px;
 		}
 
-	
-		/*#carousel_picture > ul > li {
-			width: 1000px;
-			margin: 0 auto;
-			box-sizing: border-box;
-			height: 350px; /*임시로 고정 나중에 삭제할 것!
-			border: 1px solid red;
-			
-		}*/
 		
 		.sale_game_name{
 			height: 6%;
@@ -302,46 +293,9 @@
 			<div class="game_price">23000</div>
 			<div class="game_price">34000</div>			
 		</div>
-	
 			
 	</div>
 	
-	<div class="sale">
-		<h3>할인게임</h3>			
-		<div class="sale_game">
-			<div class="game journey"></div>	
-			<div class="game portal"></div>
-			<div class="game gris"></div>
-			<div class="game ori"></div>
-			<div class="game shadow"></div>
-		</div>
-		
-		<div class="sale_game_name">
-			<div class="game_name">journey</div>
-			<div class="game_name">portal</div>
-			<div class="game_name">gris</div>
-			<div class="game_name">ori and the blind forest</div>
-			<div class="game_name">shadow of colossus</div>
-		</div>
-
-		<div class="sale_game_info">
-			<div class="game_info">힐링,모험,협동</div>
-			<div class="game_info">퍼즐,두뇌,전략</div>
-			<div class="game_info">모험,스토리</div>
-			<div class="game_info">공포,모험</div>
-			<div class="game_info">전략,액션,모험</div>			
-		</div>
-
-		<div class="sale_game_price">
-			<div class="game_price">10000</div>
-			<div class="game_price">5000</div>
-			<div class="game_price">12000</div>
-			<div class="game_price">23000</div>
-			<div class="game_price">34000</div>			
-		</div>
-	
-			
-	</div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

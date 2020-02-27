@@ -348,7 +348,7 @@ ul {
 		height: 100%;
 		top:0;
 		left: 0;
-		display: none;
+		display: hidden;
 		align-items:center;
 		justify-content:center;
 	}
@@ -512,7 +512,7 @@ ul {
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function() {
-		FunLoadingBarStart();
+		// FunLoadingBarStart();
 		// 비정상적인 접근인지 판단 
 		var flag = '${flag}';
 		if (flag == 0) {

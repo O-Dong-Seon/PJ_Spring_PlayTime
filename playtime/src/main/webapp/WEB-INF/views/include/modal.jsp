@@ -17,7 +17,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		display: none;
+		display: none; 
 	}
 	.modal_content_msg{
 		position: relative;
@@ -102,9 +102,9 @@
 		var key ='${key}';
 		
 		var join_main_txt = id+'님 회원가입을 축하드립니다.';
-		var join_sub_txt = email + '으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.'
+		var join_sub_txt = email + '으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
 		var auth_main_txt = id+'님 이메일 인증되셨습니다. ';
-		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다.감사합니다'
+		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다.감사합니다';
 		
 		if(key == 'join') {
 			$('#modal_msg_main_txt').text(join_main_txt);  //메인 텍스트   	# = ID 
