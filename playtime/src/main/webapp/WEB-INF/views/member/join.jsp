@@ -405,30 +405,34 @@ ul {
 								<h3 class="join_title">
 									<label for="id">아이디</label>
 								</h3>
-								<span class="ps_box int_id"> <input type="text" id="uid"
-									name="id" class="int join_info_box_input"> <span
-									class="step_url">@naver.com</span>
-								</span> <span class="error_next_box">필수 정보입니다</span>
+									<span class="ps_box int_id"> <input type="text" id="uid" name="id" class="int join_info_box_input" readonly value = "${user.id}">
+									<span class="step_url">@naver.com</span>
+								</span> 
+								<span class="error_next_box">필수 정보입니다</span>
 							</div>
 
 							<div class="join_row">
 								<h3 class="join_title">
 									<label for="pswd1">비밀번호</label>
 								</h3>
-								<span class="ps_box int_pass"> <input type="text"
-									id="upw" name="pw" class="int join_info_box_input"> <span
-									class="step_url"><span class="pw_lock"></span></span>
-								</span> <span class="error_next_box">필수 정보입니다</span>
+								<span class="ps_box int_pass"> 
+									<input type="text" id="upw" name="pw" class="int join_info_box_input"> 
+									<span class="step_url"><span class="pw_lock"></span></span>
+								</span> 
+								<span class="error_next_box">필수 정보입니다</span>
 							</div>
 
 							<div class="join_row">
 								<h3 class="join_title">
 									<label for="urpw">비밀번호 재확인</label>
 								</h3>
-								<span class="ps_box int_pass"> <input type="text"
-									id="urpw" name="urpw" class="int join_info_box_input">
-									<span class="step_url"><span class="repw_lock"></span></span>
-								</span> <span class="error_next_box">필수 정보입니다</span>
+								<span class="ps_box int_pass"> 
+									<input type="text" id="urpw" name="urpw" class="int join_info_box_input">
+										<span class="step_url">
+											<span class="repw_lock"></span>
+										</span>
+								</span>
+								 <span class="error_next_box">필수 정보입니다</span>
 							</div>
 						</div>
 
@@ -437,8 +441,7 @@ ul {
 								<h3 class="join_title">
 									<label for="name">이름</label>
 								</h3>
-								<span class="ps_box"> <input type="text" id="uname"
-									name="name" class="int join_info_box_input">
+								<span class="ps_box"> <input type="text" id="uname"	name="name" class="int join_info_box_input" >
 								</span> <span class="error_next_box">필수 정보입니다</span>
 							</div>
 
@@ -448,8 +451,7 @@ ul {
 								<h3 class="join_title">
 									<label for="name">본인 확인 이메일<span class="choice">(선택)</span></label>
 								</h3>
-								<span class="ps_box"> <input type="text" id="uemail"
-									name="email" class="int join_info_box_input" placeholder="선택입력">
+								<span class="ps_box"> <input type="text" id="uemail" name="email" class="int join_info_box_input" placeholder="선택입력" >
 								</span> <span class="error_next_box">필수 정보입니다</span>
 							</div>
 
@@ -459,10 +461,10 @@ ul {
 								</h3>
 
 
-								<span class="ps_box"> <input type="tel" id="uphone"
-									name="phone" class="int join_info_box_input"
-									placeholder="'-'없이 입력 예) 01023341234">
-								</span> <span class="error_next_box">필수 정보입니다</span>
+								<span class="ps_box"> 
+									<input type="tel" id="uphone"	name="phone" class="int join_info_box_input" placeholder="'-'없이 입력 예) 01023341234" >
+								</span> 
+								<span class="error_next_box">필수 정보입니다</span>
 
 							</div>
 
@@ -472,10 +474,10 @@ ul {
 								</h3>
 
 								<span class="ps_box"> <input type="text"
-									name ="postcode"class="addr_only join_info_box_input" id="sample6_postcode" placeholder="우편번호"> 
+									name ="postcode"class="addr_only join_info_box_input" id="sample6_postcode" placeholder="우편번호" readonly value = "${user.postcode}"> 
 									<input type="button" id="btn_post"onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></span>
-									<span class="ps_box"> <input type="text" name="addr1" class="addr_only join_info_box_input" id="sample6_address"	placeholder="주소"></span>
-									<span class="ps_box"> <input type="text" name="addr2"class="join_info_box_input" id="sample6_detailAddress" placeholder="상세주소"></span>
+										<span class="ps_box"> <input type="text" name="addr1" class="addr_only join_info_box_input" id="sample6_address" placeholder="주소" readonly value="${user.addr1}"></span>
+										<span class="ps_box"> <input type="text" name="addr2" class="join_info_box_input" id="sample6_detailAddress" placeholder="상세주소" readonly value="${user.addr2 }"></span>
 									 <input	type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 								<span class="error_next_box">필수 정보입니다</span>
 							</div>
@@ -512,12 +514,32 @@ ul {
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function() {
+		alert('user: '+ '${user}');	
+		
+		if('${user}' != ''){
+			// 회원정보 수정 디자인 변경
+			// → 버튼 텍스트가 수정하기
+			$('#btn_join').text('수정하기');
+			
+			// → 비밀번호, 비밀번호 재설정 제거
+			$('.join_row:eq(1)').css('display', 'none');
+			
+			$('.join_row:eq(2)').css('display', 'none');
+			
+			// →id에 readonly효과를 줘서 입력이 불가능하게 바꿈
+			// id = #id 를 제거해서 우리가 입력한 유효성체크 동작불가능
+			$('.join_info_box_input:eq(0)').attr('readonly', 'true')
+										   .removeAttr('id');
+		}
+		
 		// FunLoadingBarStart();
 		// 비정상적인 접근인지 판단 
-		var flag = '${flag}';
-		if (flag == 0) {
-			location.href = "${path}/member/constract";
-		}
+		
+		/*  var flag = '${flag}';
+			if (flag == 0) {
+				location.href = "${path}/member/constract";
+		} 
+		*/
 
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값
 		var pwFlag = false;
@@ -727,7 +749,7 @@ ul {
 					if (invalidAll) {
 						FunLoadingBarStart(); //로딩바 생성
 
-						alert('회원가입 성공!')
+						//alert('회원가입 성공!')
 						
 						$('#frm_member').submit();
 					} else {

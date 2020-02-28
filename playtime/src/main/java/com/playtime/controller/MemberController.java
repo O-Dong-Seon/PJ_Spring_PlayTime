@@ -1,6 +1,7 @@
 package com.playtime.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,7 +94,12 @@ public class MemberController {
 		log.info(">>>>> MEMBER/JOIN PAGE GET 출력");
 		log.info(mDto.toString());
 		
-		model.addAttribute("flag", flag);
+		// model.addAttribute("flag", flag);
+		
+		// 비정상적인 접근일 경우 약관 동의페이지로 이동
+		if(!flag.equals("1")) {
+			return "member/constract" ;
+		}		
 		
 		return "member/join";
 	}
@@ -186,7 +192,27 @@ public class MemberController {
 		return flag;
 	}
 	
-	
+	//회원정보 수정
+	@GetMapping("/update")
+	public String memUpdate(HttpSession session, Model model) {
+		log.info(">>>>> GET: Member Update Page ");
+		
+		// 현재 로그인 상태를 확인
+		String id = (String)session.getAttribute("userid");  // session 영역에 담는순간 자가타입을 상실함
+		 
+		//로그인이 안되어 있으면 비정상적인 접근으로 간주하여
+		// 인덱스 페이지로 이동!!
+		if(id == null) {
+			return "redirect:/";
+		}
+		
+		// 로그인된 유저의 정보를 GET
+		// 회원정보 수정 페이지로 보내기
+		model.addAttribute("user",mService.userView(id));
+		
+		
+		return "member/join";
+	}
 	
 	
 }

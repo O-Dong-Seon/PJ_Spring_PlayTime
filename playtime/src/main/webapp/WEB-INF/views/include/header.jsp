@@ -616,8 +616,11 @@ div.header_content {
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
 									<li><a href="#">구매내역</a></li>
-									<li><a href="#">회원정보수정</a></li>
 									<li><a href="#">위시리스트</a></li>
+									<c:if test="${not empty userid }">
+										<li><a href="${path}/member/update">회원정보수정</a></li>
+										<li><a href="${path}/member/pwupdate">비밀번호수정</a></li>
+									</c:if>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
@@ -650,7 +653,7 @@ div.header_content {
 <script type="text/javascript">
 	
 	$(function(){
-		alert('${sessionScope.userid}');
+		//alert('${sessionScope.userid}');
 	});
 	
 
@@ -748,8 +751,8 @@ div.header_content {
 	
 	// LOGIM 버튼 클릭시 AJAX 동작
 	$(document).on('click','#btn-login',function(){
-		alert('test');
-		//id 와 pw값 받아와서 null이면 작동X
+		// alert('test');
+		// id 와 pw값 받아와서 null이면 작동X
 		var id = $('#login_id').val();
 		var pw = $('#login_pw').val();
 		
@@ -789,7 +792,7 @@ div.header_content {
 				console.log('Logout Success:D');
 				location.reload();
 			},
-			eroor: function(){
+			error: function(){
 				alert('System Error:/');
 			}
 		});
