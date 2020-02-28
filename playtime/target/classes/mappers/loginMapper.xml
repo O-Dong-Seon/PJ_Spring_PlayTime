@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.playtime.persistence.LoginDAO">
 		<select id="loginUser" resultType="MemberDTO">
 			SELECT * FROM tbl_member
-			WHERE id = #{id} AND pw= #{pw}		
+			WHERE id = #{id}	
 		</select>
 
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="include/header.jsp" %>
-    
+<%@ include file="include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +23,7 @@
 		/* Slideshow container */
 		.slideshow-container {
 		  max-width: 1000px;
+		  height: 100%;
 		  position: relative;
 		}
 		.carousel_all {
@@ -227,7 +227,7 @@
 
 			<div class="mySlides fade">
 			  <div class="numbertext">3 / 5</div>
-				  <img src="${path}/resources/img/그리스.jpg" style="width:100%">
+				  <img src="${path}/resources/img/그리스2.jpg" style="width:100%">
 			  <div class="text">Playtime</div>
 			</div>
 

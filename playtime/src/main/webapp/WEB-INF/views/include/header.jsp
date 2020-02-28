@@ -489,10 +489,10 @@ div.header_content {
 				<form>
 					<div class="login_box">
 						<form class="frm_login" onsubmit="return false;">
-						<div class="err_content"></div>
+							<div class="err_content"></div>
 							<div class="login_content">
 								<div class="login_t" id="naver_id">
-									<input type="email" placeholder="이메일" id ="login_id">
+									<input type="text" placeholder="이메일" id ="login_id">
 								</div>
 								<div class="login_t" id="naver_pw">
 									<input type="text" placeholder="비밀번호" required minlength="6"
@@ -628,17 +628,15 @@ div.header_content {
 						<div class="header_content_member_cart">
 							<a href="#"><i class="fas fa-cart-arrow-down"></i></a>
 						</div>
-					</div>
-					
-					
+					</div>					
 					<c:choose>
 						<c:when test="${empty sessionScope.userid}">
-								<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-								<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button></div>
+							<div><button type="button" class="btn btn-basic login_open" id="header_btn_login">로그인</button></div>
+							<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button></div>
 						</c:when>
-	
 						<c:otherwise>	
-							<div><button type="button" class="btn btn-basic login_out">로그아웃</button></div>
+							<div><span>${sessionScope.userid}(${sessionScope.name})</span></div>
+							<div><button type="button" id="header_btn_logout" class="btn btn-basic login_out">로그아웃</button></div>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -651,7 +649,9 @@ div.header_content {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	
-	
+	$(function(){
+		alert('${sessionScope.userid}');
+	});
 	
 
 
@@ -748,6 +748,7 @@ div.header_content {
 	
 	// LOGIM 버튼 클릭시 AJAX 동작
 	$(document).on('click','#btn-login',function(){
+		alert('test');
 		//id 와 pw값 받아와서 null이면 작동X
 		var id = $('#login_id').val();
 		var pw = $('#login_pw').val();
@@ -756,29 +757,47 @@ div.header_content {
 			$.ajax({
 				url:'${path}/login/in',
 				type: 'POST',
-				data: 'id=' +id+'&pw='+pw,
+				data: 'id='+id+'&pw='+pw,
 				success: function(data){
-				// alert('System Success:')
 					console.log(data);
 					
-				if(data == 0) {
-					$('.err_content').css('display', 'block')
-					.text('아이디 및 비밀번호를 확인하거나 계정을 생성하세요');
-				} else if(data == 1){
-					
-				} else if(data == 2)
-					$('.err_content').css('display', 'block')
-					.text('이메일 인증 후 로그인 할 수 있습니다.');
+					if(data == 0) {
+						$('.err_content').css('display', 'block')
+						.text('아이디 및 비밀번호를 확인하거나 계정을 생성하세요');
+					} else if(data == 1){
+						console.log('로그인성공');
+						location.reload(); // 새로고침
+					} else if(data == 2) {
+						$('.err_content').css('display', 'block')
+						.text('이메일 인증 후 로그인 할 수 있습니다.');
+					}
 				},
 				error: function() {
 					alert('System Error:/');
 				}
 			});
-		}
-
-		
-		
+		}		
 	});
+	
+	
+	/* 로그아웃 기능 */
+	$(document).on('click', '#header_btn_logout', function(){
+		$.ajax({
+			url: '${path}/login/out',
+			type: 'POST',
+			success: function(){
+				console.log('Logout Success:D');
+				location.reload();
+			},
+			eroor: function(){
+				alert('System Error:/');
+			}
+		});
+	});
+	
+	
+	
+	
 	
 	// Header가입하기 버튼 클릭시 동의 페이지 이동
 	

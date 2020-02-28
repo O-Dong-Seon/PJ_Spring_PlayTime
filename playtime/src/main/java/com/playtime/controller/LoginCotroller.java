@@ -31,9 +31,20 @@ public class LoginCotroller {
 		// 로그인
 		int result = IService.login(mDto, session);
 		log.info("결과는~~~~~~~" + result);
-		
+		log.info("Sessing userid: "+(String) session.getAttribute("userid"));
+		log.info("Sessing name: "+(String) session.getAttribute("name"));
 		
 		return result;
-		
 	}
+	
+	@ResponseBody
+	@PostMapping("/out")
+	public void logOut(HttpSession session) {
+		log.info(">>>>> POST : LOGOUT/LOGOUT ACTION");
+		
+		IService.logout(session);
+	}
+	
+	
+	
 }
