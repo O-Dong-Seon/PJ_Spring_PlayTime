@@ -441,8 +441,8 @@ ul {
 								<h3 class="join_title">
 									<label for="name">이름</label>
 								</h3>
-								<span class="ps_box"> <input type="text" id="uname"	name="name" class="int join_info_box_input" >
-								</span> <span class="error_next_box">필수 정보입니다</span>
+								<span class="ps_box"> <input type="text" id="uname"	name="name" class="int join_info_box_input" value="${user.name}" ></span> 
+								<span class="error_next_box">필수 정보입니다</span>
 							</div>
 
 
@@ -451,7 +451,7 @@ ul {
 								<h3 class="join_title">
 									<label for="name">본인 확인 이메일<span class="choice">(선택)</span></label>
 								</h3>
-								<span class="ps_box"> <input type="text" id="uemail" name="email" class="int join_info_box_input" placeholder="선택입력" >
+								<span class="ps_box"> <input type="text" id="uemail" name="email" class="int join_info_box_input" value="${user.email}" placeholder="선택입력" >
 								</span> <span class="error_next_box">필수 정보입니다</span>
 							</div>
 
@@ -462,7 +462,7 @@ ul {
 
 
 								<span class="ps_box"> 
-									<input type="tel" id="uphone"	name="phone" class="int join_info_box_input" placeholder="'-'없이 입력 예) 01023341234" >
+									<input type="tel" id="uphone"	name="phone" class="int join_info_box_input" value="${user.phone}" placeholder="'-'없이 입력 예) 01023341234" >
 								</span> 
 								<span class="error_next_box">필수 정보입니다</span>
 
@@ -477,14 +477,14 @@ ul {
 									name ="postcode"class="addr_only join_info_box_input" id="sample6_postcode" placeholder="우편번호" readonly value = "${user.postcode}"> 
 									<input type="button" id="btn_post"onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></span>
 										<span class="ps_box"> <input type="text" name="addr1" class="addr_only join_info_box_input" id="sample6_address" placeholder="주소" readonly value="${user.addr1}"></span>
-										<span class="ps_box"> <input type="text" name="addr2" class="join_info_box_input" id="sample6_detailAddress" placeholder="상세주소" readonly value="${user.addr2 }"></span>
+										<span class="ps_box"> <input type="text" name="addr2" class="join_info_box_input" id="sample6_detailAddress" placeholder="상세주소" value="${user.addr2}"></span>
 									 <input	type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 								<span class="error_next_box">필수 정보입니다</span>
 							</div>
 
 
 							<div class="btn_double_area">
-								<button type="button" class="btn_type btn_agree " id="btn_join">가입하기</button>
+								<button type="button" class="btn_type btn_agree" id="btn_join">가입하기</button>
 							</div>
 						</div>
 					</div>
@@ -509,12 +509,22 @@ ul {
 		</footer>
 	</div>
 </body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
+	
 	$(function() {
-		alert('user: '+ '${user}');	
+		// 비밀번호가 유효한 값인지 체크해주는 Flag값
+		var pwFlag = false;
+
+		// 유효성 체크 여부를 알려주는 배열
+		var checkArr = new Array(6).fill(false);
+
+		// printCheckArr(checkArr);
+		var checkAll = true;
+		
+		
+		// alert('user: '+ '${user}');	
 		
 		if('${user}' != ''){
 			// 회원정보 수정 디자인 변경
@@ -522,15 +532,50 @@ ul {
 			$('#btn_join').text('수정하기');
 			
 			// → 비밀번호, 비밀번호 재설정 제거
-			$('.join_row:eq(1)').css('display', 'none');
-			
-			$('.join_row:eq(2)').css('display', 'none');
-			
+			$('.join_row:eq(1)').css('visibility', 'hidden')
+								.css('height', '0px')
+								.css('margin-top', '-17px');
+								
+			$('.join_row:eq(2)').css('visibility', 'hidden')
+								.css('height', '0px')
+								.css('margin-top', '-17px');
 			// →id에 readonly효과를 줘서 입력이 불가능하게 바꿈
 			// id = #id 를 제거해서 우리가 입력한 유효성체크 동작불가능
 			$('.join_info_box_input:eq(0)').attr('readonly', 'true')
 										   .removeAttr('id');
+			var name = '${user.name}';
+			var phone = '${user.phone}';
+			var email = '${user.email}';
+			var postcode = '${user.postcode}';
+			var addr1 = '${user.addr1}';
+			var addr2 = '${user.addr2}';
+			ckName(name);
+			ckPhone(phone);
+			ckEmail(email);
+			ckAddr(postcode, addr2);
+			checkArr[0] = true;
+			checkArr[1] = true;
+			ckColorBtn();
+			printCheckArr(checkArr);
 		}
+		
+		function ckDesign(code, desc, line, msg) {
+			if (code == 0 || code == 10) { 							//통과 o 
+				$('.ps_box:eq(' + line + ')').css('border', ' 2px solid #3885CA');
+				$('.error_next_box:eq(' + msg + ')').css('visibility', 'visible')
+													.text(desc)
+													.css('color', '#3885CA');
+				return true;
+
+			} else { 												// 통과 x
+				$('.ps_box:eq(' + line + ')').css('border', ' 2px solid #d95339');
+				$('.error_next_box:eq(' + msg + ')').css('visibility', 'visible')
+													.text(desc)
+													.css('color', '#d95339');
+				return false;
+			}
+		}
+		
 		
 		// FunLoadingBarStart();
 		// 비정상적인 접근인지 판단 
@@ -541,14 +586,7 @@ ul {
 		} 
 		*/
 
-		// 비밀번호가 유효한 값인지 체크해주는 Flag값
-		var pwFlag = false;
-
-		// 유효성 체크 여부를 알려주는 배열
-		var checkArr = new Array(6).fill(false);
-
-		// printCheckArr(checkArr);
-		var checkAll = true;
+	
 
 		// 유효성 체크
 		// id가 uid인 input태그의 값을 가져와서 체크	
@@ -603,9 +641,8 @@ ul {
 			// 3.체크 결과에 따라 디자인하기
 			ckDesign(result.code, result.desc, 1, 1);
 		});
-		//비밀번호 재확인 유효성 체크
-		$('#urpw').keyup(
-				function() {
+		// 비밀번호 재확인 유효성 체크
+		$('#urpw').keyup(function() {
 					var pw = $.trim($('#upw').val());
 					var rpw = $.trim($('#urpw').val());
 					// console.log(pw+","+rpw);
@@ -627,51 +664,63 @@ ul {
 		// 이름 유효성체크
 		$('#uname').keyup(function() {
 			var name = $.trim($(this).val());
-
+			ckName(name);
+			
+		});
+		
+		
+		function ckName(name){
 			var result = joinValidate.checkName(name);
-
+			ckDesign(result.code, result.desc, 3, 3);
+				
 			if (result.code == 0) {
 				checkArr[2] = true;
 			} else {
 				checkArr[2] = false;
-			}
-			printCheckArr(checkArr);
-
-			ckDesign(result.code, result.desc, 3, 3);
-		});
+			}			
+		}
 
 		// 전화번호 체크
 		$('#uphone').keyup(function() {
-			var phone = $.trim($(this).val());
+			var phone = $.trim($('#uphone').val());
 			
+			$('.phone_cnt').text(phone.length);
+			ckPhone(phone);
+		});
+		
+		function ckPhone(phone){
 			var result = joinValidate.checkPhone(phone);
-
+			ckDesign(result.code, result.desc, 5, 5);
+			
 			if (result.code == 0) {
 				checkArr[3] = true;
 			} else {
 				checkArr[3] = false;
-			}
-			printCheckArr(checkArr);
-
-			ckDesign(result.code, result.desc, 5, 5);
-		});
+			}						
+		}
+		
+		
 
 		// 이메일 유효성 체크
 		$('#uemail').keyup(function() {
 			var email = $.trim($(this).val());
 			// alert('test');
-			console.log('test');
+			//console.log('test');
+			ckEmail(email);
+		});
+		
+		function ckEmail(email){
 			var result = joinValidate.checkEmail(email);
-
+			ckDesign(result.code, result.desc, 4, 4);
+			
 			if (result.code == 0) {
 				checkArr[4] = true;
 			} else {
 				checkArr[4] = false;
 			}
-			printCheckArr(checkArr);
-
-			ckDesign(result.code, result.desc, 4, 4);
-		});
+		}
+		
+		
 
 		$('.addr_only').click(function() {
 			// 사용자가 우편번호 또는 주소 input을 클릭했을 때!
@@ -688,50 +737,59 @@ ul {
 
 		//주소 유효성 체크
 		$('#sample6_detailAddress').keyup(function() {
-			var addrDetail = $.trim($(this).val());
-			var addrPost = $('#sample6_postcode').val();
+			var postcode = $.trim($(this).val());
+			var addr2 = $('#sample6_postcode').val();
 			// console.log('우편번호'+addrPost+'상세주소:' + addrDetail);
-
-			var result = joinValidate.checkAddr(addrDetail, addrPost);
+			ckAddr(addr2, postcode);
+			
+		});
+				
+		function ckAddr(addr2, postcode){
+			var result = joinValidate.checkAddr(postcode, addr2);
 			
 			if (result.code == 3) { //우편번호 & 주소 X 
-				ckDesign(result.code, result.desc, 8, 10);
-				ckDesign(result.code, result.desc, 7, 10);
+				ckDesign(result.code, result.desc, 6, 6);
+				ckDesign(result.code, result.desc, 7, 6);
 				checkArr[5] = false;
 			} else if (result.code == 0) { // 상세주소 X
 				checkArr[5] = true;
-				ckDesign(result.code, result.desc, 7, 10);
-				ckDesign(result.code, result.desc, 8, 10);
-				ckDesign(result.code, result.desc, 9, 10);
+				ckDesign(result.code, result.desc, 6, 6);
+				ckDesign(result.code, result.desc, 7, 6);
+				ckDesign(result.code, result.desc, 8, 6);
 			} else { // 상세주소 통과 X한 모든 경우
-				ckDesign(result.code, result.desc, 9, 10);
+				ckDesign(result.code, result.desc, 8, 6);
 				checkArr[5] = false;
 			}
-			printCheckArr(checkArr);
-		});
+			
+		}
 
 		// 버튼활성화!
 		$('.join_info_box_input').blur(function() {
-
+			ckColorBtn();
+		});
+		
+		function ckColorBtn(){
 			var checkAll = true;
 
 			for (var i = 0; i < checkArr.length; i++) {
-				if (!checkAll[i]) {
+				if (!checkArr[i]) {
 					checkAll = false;
 				}
 			}
+			console.log('뚱선 : '+checkAll);
+			printCheckArr(checkArr);
 			if (checkAll) {
-				$('#btn_join').addClass('btn-primary');
+				$('#btn_join').removeClass('btn_agree')
+							  .addClass('btn-primary');
 				// $('btn_join').prop('disabledd', true);
 				$('#btn_join').css('cursor', 'pointer');
 			} else {
-				$('#btn_join').removeClass('btn-primary');
+				$('#btn_join').removeClass('btn-primary')
+							  .addClass('btn_agree');
 				// $('btn_join').prop('disabledd', true);
 				$('#btn_join').css('cursor', 'no-drop');
-			}
-			
-			
-		});
+			}	
+		}
 
 		// 회원가입 버튼 클릭
 		$('#btn_join').click(
@@ -779,22 +837,7 @@ ul {
 		$('#loadingImg').show();
 	}
 
-	function ckDesign(code, desc, line, msg) {
-		if (code == 0 || code == 10) { 							//통과 o 
-			$('.ps_box:eq(' + line + ')').css('border', ' 2px solid #3885CA');
-			$('.error_next_box:eq(' + msg + ')').css('visibility', 'visible')
-												.text(desc)
-												.css('color', '#3885CA');
-			return true;
-
-		} else { 												// 통과 x
-			$('.ps_box:eq(' + line + ')').css('border', ' 2px solid #d95339');
-			$('.error_next_box:eq(' + msg + ')').css('visibility', 'visible')
-												.text(desc)
-												.css('color', '#d95339');
-			return false;
-		}
-	}
+	
 
 
 </script>
