@@ -1,13 +1,12 @@
 package com.playtime.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.playtime.domain.ProductDTO;
 import com.playtime.service.index.IndexService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,14 +25,21 @@ public class IndexController {
 	
 	
 	@GetMapping("/")
-	public String indexView(Model model) {
+	public String indexView(Model model, HttpSession session) {
 		log.info(">>>>> INDEX PAGE 출력");
 		
 		
 		// View 단에 출력할 데이터
-		List<ProductDTO> list = iService.bestPdtList();
-		model.addAttribute("BestPdt", list);
-		 model.addAttribute("NewPdt", iService.newPdtList());
+//		List<ProductDTO> list = iService.bestPdtList();
+//		model.addAttribute("BestPdt", list);
+//		 model.addAttribute("NewPdt", iService.newPdtList());
+		
+		// 개발 종료시 삭제 할 것!
+		session.removeAttribute("userid");
+		session.removeAttribute("name");
+		session.setAttribute("userid", "ehql1234");
+		session.setAttribute("name", "오동동");
+	 
 		// 출력할 화면을 결정
 		return "index";
 		

@@ -192,7 +192,7 @@ public class MemberController {
 		return flag;
 	}
 	
-	//회원정보 수정
+	//회원정보 수정 
 	@GetMapping("/update")
 	public String memUpdate(HttpSession session, Model model) {
 		log.info(">>>>> GET: Member Update Page ");
@@ -224,5 +224,50 @@ public class MemberController {
 		
 		return "redirect:/";
 	}	
+	
+	@GetMapping("/pwupdate")
+	public String pwUpdate(HttpSession session) {
+		log.info(">>>>> GET: Password Update Page");
+		String id = (String)session.getAttribute("userid");
+		if(id == null) {
+			return "redirect:/";
+		}
+		
+		return "member/pwupdate";
+	}
+	
+	@PostMapping("/pwupdate")
+	public String pwUpdate(HttpSession session, MemberDTO mDto) {
+		log.info(">>>> POST: Password Update Action");
+		log.info("수정비밀번호:" + mDto.getPw());
+		String encPw = passwordEncoder.encode(mDto.getPw()); 
+		mDto.setPw(encPw);
+		String id=(String)session.getAttribute("userid");
+		mDto.setId(id);
+		log.info(mDto.toString());
+		
+		mService.pwUpdate(mDto);
+		
+		return "redirect:/";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/pwcheck")
+	public  Integer pwCheck(String pw, HttpSession session) {
+		log.info(">>>>> POST: PWCheck(AJAX)");
+		
+		//사용자가 입력한 pw DB에 가서 pw가 같은지 체크
+		String id = (String)session.getAttribute("userid");
+		
+		return mService.pwCheck(id,pw);
+		
+	}
+	@GetMapping("/drop")
+	public String memdrop() {
+		log.info(">>>>> POST : Memeber Drop page");
+		
+		return "member/drop";
+	}
 	
 }

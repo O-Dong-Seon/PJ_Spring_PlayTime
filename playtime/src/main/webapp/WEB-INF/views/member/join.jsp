@@ -405,7 +405,7 @@ ul {
 								<h3 class="join_title">
 									<label for="id">아이디</label>
 								</h3>
-									<span class="ps_box int_id"> <input type="text" id="uid" name="id" class="int join_info_box_input" readonly value = "${user.id}">
+									<span class="ps_box int_id"> <input type="text" id="uid" name="id" class="int join_info_box_input" value = "${user.id}">
 									<span class="step_url">@naver.com</span>
 								</span> 
 								<span class="error_next_box">필수 정보입니다</span>
@@ -616,7 +616,7 @@ ul {
 			var pw = $.trim($('#upw').val());
 			var rpw = $.trim($('#urpw').val());
 			// 	1.사용자가 입력한 값 받기
-			var result = joinValidate.checkPw(pw, rpw);
+			var result = joinValidate.checkPw("",pw, rpw);
 			if (result.code == 0 || result.code == 10 || result.code == 6) {
 				pwFlag = true;
 			} else {
@@ -767,30 +767,31 @@ ul {
 		$('.join_info_box_input').blur(function() {
 			ckColorBtn();
 		});
-		
 		function ckColorBtn(){
-			var checkAll = true;
+				var checkAll = true;
 
-			for (var i = 0; i < checkArr.length; i++) {
-				if (!checkArr[i]) {
-					checkAll = false;
+				for (var i = 0; i < checkArr.length; i++) {
+					if (!checkArr[i]) {
+						checkAll = false;
+					}
 				}
+				console.log('뚱선 : '+checkAll);
+				printCheckArr(checkArr);
+				if (checkAll) {
+					$('#btn_join').removeClass('btn_agree')
+								  .addClass('btn-primary');
+					// $('btn_join').prop('disabledd', true);
+					$('#btn_join').css('cursor', 'pointer');
+				} else {
+					$('#btn_join').removeClass('btn-primary')
+								  .addClass('btn_agree');
+					// $('btn_join').prop('disabledd', true);
+					$('#btn_join').css('cursor', 'no-drop');
+				}	
 			}
-			console.log('뚱선 : '+checkAll);
-			printCheckArr(checkArr);
-			if (checkAll) {
-				$('#btn_join').removeClass('btn_agree')
-							  .addClass('btn-primary');
-				// $('btn_join').prop('disabledd', true);
-				$('#btn_join').css('cursor', 'pointer');
-			} else {
-				$('#btn_join').removeClass('btn-primary')
-							  .addClass('btn_agree');
-				// $('btn_join').prop('disabledd', true);
-				$('#btn_join').css('cursor', 'no-drop');
-			}	
-		}
-
+		
+	
+	
 		// 회원가입 버튼 클릭
 		$('#btn_join').click(
 				function() {

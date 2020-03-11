@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ include file="../include/include.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,6 +74,7 @@
 		padding-top: 35px;
 	}
 	.compatible_wrap *{
+		line-height: 1.5;
 		color: #1e1e1e;
 		font-size: 14px;
 		letter-spacing: -1px;
@@ -87,19 +90,13 @@
 		font-weight: normal;
 		font-size: 20px;
 	}
-	.pt_title{
-		display: block;
-		font-weight: normal;
-		font-size: 24px;
-		margin:0 0 4px;
-	}
 	form.pt_section{
 		text-align: center;
 		width: 100%;
 		font-size: 14px;
 	}
 	.pt_section_footer {
-		margin-top: 33px;
+		margin-top: 8px;
 		padding-top: 30px;
 		border-top: 1px solid #d4d4d4;
 
@@ -217,16 +214,157 @@
 		color: #222;
 		text-align: left;
 	}
+	.pt_title {
+		display: block;
+		font-weight: normal;
+		font-size: 24px;
+		margin: 0 0 4px;
+	}
+	form.pt_section {
+		text-align: center;
+		width: 100%;
+		font-size: 14px;
+	}
+	.pt_email {
+		margin-top: 8px;
 
+	}
+	.pt_email_box {
+		margin: 10px 0;
+		display: inline-block;
+		width: 272px;
+		height: 38px;
+		padding: 0 15px;
+		border: 1px solid #d4d4d4;
+		border-radius: 3px;
+		font-weight: bold;
+		line-height: 38px;
+		background-color: #f0f0f0;
+		text-align: left;
+	}
+
+	.pt_input_group{
+		display: inline-block;
+		margin: 10px 0;
+		width: 272px;
+		height: 38px;
+		padding: 0 15px;
+		border: 1px solid #d4d4d4;
+		border-radius: 3px;
+		font-weight: bold;
+		line-height: 38px;
+		background-color: #f0f0f0;
+		text-align: left;
+	}
+	.pt_input-group .pt_input_wrapper input{
+		width:90%;
+	}
+	.pt_input_wrapper input {
+		outline: none;
+		display: block;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 100%;
+		margin-top: 10px;
+		line-height: 100%;
+		background-color: #f0f0f0;
+	}
+
+	/* 모달 경고 창*/
+	.modal_wrap{
+		position: fixed;
+		z-index: 1000;
+		background-color: rgba(0,0,0,0.4);
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		display: none;
+	}
+	.modal_content{
+		position: relative;
+		width: 400px;
+		background-color: white;
+		box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
+		border-radius: 5px;
+		overflow: hidden;
+		padding: 15px;
+	}
+	.modal_box{
+		margin: 0;
+		padding: 0;
+	}
+	.modal_box{
+		text-align: center;
+		font-size: 12px;
+	}
+	.agree_title > h3{	
+		margin-bottom: 14px;
+		text-align: center;
+		font-size: 25px;
+	}
+	.box_line{
+		margin-top: 80px;
+		padding: 1px;
+		border-bottom: 1px solid #d4d4d4;
+		margin: 14px auto;
+		width: 290px;
+	}
+	.modal_button > .cancel_button{
+		border-radius: 4px;
+		border: 1px solid #d6d6d6;
+		text-align: center;
+		background-color: #fafafa;
+		display: inline-block;
+		min-width: 100px;
+		padding: 10px;
+		cursor: pointer;
+	}
+	.modal_button > .agree_button{
+		border-radius: 4px;
+		border: 1px solid #d6d6d6;
+		text-align: center;
+		background-color: #ffea00;
+		display: inline-block;
+		min-width: 100px;
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	
+	
+	
 	</style>
 </head>
 <body>
-<body class="not-support-flex">
+<body class="not-support-flex">	
+	<div class="modal_wrap">
+		<div class="modal_content">
+			<div class="agree_title">
+				<h3>정말 회원 탈퇴를 하시겠습니까???</h3>
+			</div>
+			<div class="modal_box">
+				<div><h3>탈퇴시 이용하던 서비스 기록은 복구가 불가능합니다<br>
+					이후 생길 불이익에 책임 지지 않으니 신중하게<br>결정해주시고 버튼을 눌러주세요</h3></div>
+			<div class="box_line"></div>
+
+			<div class="modal_button">
+				
+				<div class="cancel_button">아니오</div>
+					<div class="agree_button">예</div>
+			
+			</div>
+		</div>
+		</div>
+	</div>
 	<div class="wrap">
 		<header id="playhead">
 			<h1>
 				<a href="#" id="play_service_logo" class="link_logo">
-					<span class="service_play">계정</span>
+					<span class="service_play"></span>
 				</a>
 			</h1>
 		</header>
@@ -236,7 +374,7 @@
 						<div class="pt_header">
 							<div class="pt_nav back"></div>
 							<div class="pt_nav close"></div>
-							<h1>플레이타임계정 탈퇴</h1>
+							<h1>사용자 확인</h1>
 						</div>
 					</div>
 						<div class="pt" id="content">
@@ -245,10 +383,26 @@
 									<p class="pt_desc1">플레이타임 계정은 전체 서비스 뿐 아니라 Daum,naver 및 외부서비스에서도 함께 이용하는 통합 계정입니다</p>
 									<p class="desc1_box"><br></p>
 									<p class="pt_desc2">플레이타임 계정을 탈퇴하면 계정 정보 및 서비스 이용 기록(naver,daum 등)을 포함한 모든 정보가 삭제됩니다</p>
-									<p class="pt_desc3">탈퇴한 후에는 더이상 플레이타임 계정으로 로그인 할 수 없으므로, 플레이타임 계정으로 연결하여 사용한 외부 서비스들도 모두 이용할 수 없게 됩니다</p><br>
+									<p class="pt_desc3">탈퇴한 후에는 더이상 플레이타임 계정으로 로그인 할 수 없으므로, 플레이타임 계정으로<br>
+														 연결하여 사용한 외부 서비스들도 모두 이용할 수 없게 됩니다</p>
 									<p class="pt_desc4">* 플레이타임 계정을 탈퇴하시기 전 '계정이용'메뉴에서 현재 사용중인 서비스를 확인해주세요</p>
 									<p class="pt_desc5">탈퇴된 플레이타임 계정 정보와 서비스 이용기록 등은 복구할 수 없으니 신중하게 선택하시길 바랍니다</p>
+							<div class="pt_container">
+								<h1 class="pt_title_agree">회원님의 소중한 정보 보호를 위해 현재 비밀번호를 확인해주세요</h1>
 								<form class="pt_section">
+									<div class="pt_email_box">
+										<div class="pt_email account"> vivace52@naver.com</div>
+									</div>
+									<div class="pt_password_box">
+										<fieldset class="pt_input_group">
+											<div class="pt_input_wrapper">
+												<div>
+													<input data-error-empty="비밀번호를 입력해주세요.(영문자/숫자/특수문자)" data-error-invalid="비밀번호가 올바르지 않습니다" data-error-not-matched="입력한 비밀번호와 재입력한 비밀번호가 일치하지 않습니다.다시 확인해주세요" maxlength="32" name="password" placeholder="비밀번호" send="true" type="password" validator="password" autocomplete="off">
+												</div>
+												<div class="button"></div>
+											</div>
+										</fieldset>
+									</div>
 									<div class="pt_section_footer">
 										<a class="pt_button cancel" href="#"><span>탈퇴취소</span></a>
 										<a class="pt_button mean"  href="#"><span>확인</span></a>
@@ -259,6 +413,5 @@
 				</div>
 			</div>
 	</div>
-
 </body>
 </html>
