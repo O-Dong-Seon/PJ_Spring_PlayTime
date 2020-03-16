@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class IndexServiceImpi implements IndexService {
+public class IndexServiceImpl implements IndexService {
 
 	// 기존에는 DAO -> Mybatis -> DB(Oracle) 순차적으로
 	// 동작해서 비효율적이던 실행방법을 다음과 같이
@@ -25,6 +25,7 @@ public class IndexServiceImpi implements IndexService {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	/*
 	ProductDAO pDao;	// 전역변수 : 값이 없으면 null로 초기화(객체니까)
 	@Autowired
 	public void newProductDAO() {
@@ -61,5 +62,5 @@ public class IndexServiceImpi implements IndexService {
 		
 		return pDao.newPdtList();
 	}
-
+	*/
 }

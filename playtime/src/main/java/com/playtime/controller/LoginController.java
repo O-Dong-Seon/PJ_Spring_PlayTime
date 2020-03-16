@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RestController
-public class LoginCotroller {
+public class LoginController {
 	
 	@Autowired
 	LoginService IService;

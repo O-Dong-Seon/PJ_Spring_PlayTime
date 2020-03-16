@@ -600,7 +600,6 @@ div.header_content {
 									<li><a href="#">스토리</a></li>
 									<li><a href="#">멀티플레이</a></li>
 									<li><a href="#">액션</a></li>
-
 								</ul>
 							</div>
 						</div>
@@ -622,6 +621,7 @@ div.header_content {
 										<li><a href="${path}/member/pwupdate">비밀번호수정</a></li>
 										<li><a href="${path}/member/drop">회원탈퇴</a></li>
 									</c:if>									
+									<li><a href="${path}/member/mypage">마이페이지</a></li>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
@@ -655,6 +655,14 @@ div.header_content {
 	
 	$(function(){
 		//alert('${sessionScope.userid}');
+		
+		var message = '${message}';
+		if(message == 'nologin') {
+			$('.modal_wrap').css('display', 'flex');
+			$('login_id').focus();
+			$('.err_content').css('display', 'block')
+						     .text('로그인이 필요한 기능입니다');
+		}
 	});
 	
 

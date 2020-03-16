@@ -272,7 +272,8 @@ var joinValidate = {
 			return this.resultCode.success_addr;
 		}
 	},
-	checkNowpw :function(pw){
+	checkNowpw :function(
+){
 		var regEmpty = /\s/g; // 공백문자
 		
 		if(pw == '' || pw.length == 0){ 	// 1. 값이 있는지 체크

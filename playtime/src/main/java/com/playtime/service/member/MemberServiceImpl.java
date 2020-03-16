@@ -28,6 +28,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int idOverlap(String id) {
+		
 		return mDao.idOverlap(id);
 	}
 
@@ -67,5 +68,23 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void pwUpdate(MemberDTO mDto) {
 		mDao.pwUpdate(mDto);
+	}
+	
+	@Override
+	public void memDrop(HttpSession session, String id) {
+		// 비즈니스로직(회원탈퇴)
+		// 1) 해당회원의 useyn=n으로 Update(DB)
+		int result = mDao.memDrop(id);
+		
+		// 2) 로그인유저의 정보를 삭제(session 초기화)
+		if(result > 0) {
+			session.invalidate();
+			
+			//로그인 -> session('오동선') 
+			// : session 값이있으면 로그인OK
+			// '오동선' => 회원탈퇴
+			//  인덱스 페이지
+			// : session 값이 있으니까 로그인
+		}		
 	}
 }

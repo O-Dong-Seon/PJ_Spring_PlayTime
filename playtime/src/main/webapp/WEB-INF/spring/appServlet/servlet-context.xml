@@ -42,4 +42,19 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>	
+	
+	<!--  Add Interceptor Beans -->
+	<!-- com.playtime.intercepter -->
+	<beans:bean id="loginInterceptor" class="com.playtime.interceptor.LoginInterceptor"></beans:bean>
+	
+	<!-- URL Mapping for Interceptor call -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/update"/>
+			<mapping path="/member/mypage"/>
+			<mapping path="/member/pwupdate"/>
+			<mapping path="/member/drop"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 </beans:beans>

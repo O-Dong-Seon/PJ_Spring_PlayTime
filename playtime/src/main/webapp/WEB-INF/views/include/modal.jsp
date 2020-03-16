@@ -77,18 +77,16 @@
 	<div class="modal_wrap_msg">
 		<div class="modal_content_msg">
 			<div class="agree_title">
-				<h3>회원 가입 성공</h3>
+				<h3></h3>
 			</div>
 			<div class="modal_box">
 				<div><h3 id="modal_msg_main_txt"></h3></div>
 				<div><h3 id="modal_msg_sub_txt"></h3></div>
 			<div class="box_line"></div>
 
-			<div class="modal_button">
-				
-					<!-- <div class="cancle_button">닫기</div> -->
-					<div class="agree_button">확인</div>
-			
+			<div class="modal_button">				
+					<div id ="modal_msg_cancle" class="cancle_button">닫기</div>
+					<div id ="modal_msg_yes" class="agree_button">확인</div>			
 			</div>
 		</div>
 		</div>
@@ -105,25 +103,39 @@
 		var join_sub_txt = email + '으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
 		var auth_main_txt = id+'님 이메일 인증되셨습니다. ';
 		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다.감사합니다';
+		var drop_main_txt = '${userid}님 정말 탈퇴하시겠습니까?';
+		var dropResult_main_txt = id +'님 탈퇴되셨습니다';
+		var dropResult_sub_txt = '그동안 playtime을 이용해주셔서 감사합니다';
 		
 		if(key == 'join') {
 			$('#modal_msg_main_txt').text(join_main_txt);  //메인 텍스트   	# = ID 
 			$('#modal_msg_sub_txt').text(join_sub_txt);	// 서브 텍스트
-			$('.cancle_button').css('display','none'); // 취소버튼 제거 	. = class
+			$('.modal_msg_yes').css('display','none'); // 확인버튼 제거 	. = class
+			$('.modal_msg_cancle').text('확 인');
 			$('.modal_wrap_msg').css('display', 'flex');  // 모달창 출력버튼
 		} else if(key == 'auth') {
 			$('#modal_msg_main_txt').text(auth_main_txt);  //메인 텍스트   	# = ID 
 			$('#modal_msg_sub_txt').text(auth_sub_txt);	// 서브 텍스트
-			$('.cancle_button').css('display','none'); // 취소버튼 제거 	. = class
+			$('.modal_msg_yes').css('display','none'); // 확인버튼 제거 	. = class
+			$('.modal_msg_cancle').text('확 인');
 			$('.modal_wrap_msg').css('display', 'flex');  // 모달창 출력버튼
+		} else if(key == 'drop'){
+			$('modal_msg_main_txt').text(drop_main_txt);
+		} else if(key == 'dropResult'){
+			$('#modal_msg_main_txt').text(auth_main_txt);
+			$('#modal_msg_sub_txt').text(auth_sub_txt);
+			$('.modal_msg_yes').css('display','none');
+			$('.modal_msg_cancle').text('확 인');
+			$('.modal_wrap_msg').css('display', 'flex');  
 		}
 		
-		$('#modal_msg_yes').on('click', function(){
-			$('.modal_wrap_msg').css('display', 'none');
-		});
+	
 		$('.modal_msg_close').on('click', function(){
 			$('.modal_wrap_msg').css('display','none');
-		});		
+		});	
+		$('#modal_msg_cancle').on('click', function(){
+			$('.modal_msg_wrap').css('display', 'none');
+		});
 	});
 	
 	

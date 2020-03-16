@@ -123,9 +123,9 @@ public class MemberController {
 	
 	@PostMapping("/join")
 	public String join(@ModelAttribute("memberDTO") MemberDTO mDto,
-														SessionStatus sessionStatus,
-														HttpServletRequest request,
-														RedirectAttributes rttr) {
+										SessionStatus sessionStatus,
+										HttpServletRequest request,
+									    RedirectAttributes rttr) {
 		// view단에서 Controller단으로 올바르게 이동결과값 확인(URL  GET SET확인)
 		log.info(">>>>> MEMBER/JOIN PAGE POST 출력");
 		
@@ -226,13 +226,8 @@ public class MemberController {
 	}	
 	
 	@GetMapping("/pwupdate")
-	public String pwUpdate(HttpSession session) {
+	public String pwUpdate() {
 		log.info(">>>>> GET: Password Update Page");
-		String id = (String)session.getAttribute("userid");
-		if(id == null) {
-			return "redirect:/";
-		}
-		
 		return "member/pwupdate";
 	}
 	
@@ -264,10 +259,31 @@ public class MemberController {
 		
 	}
 	@GetMapping("/drop")
-	public String memdrop() {
+	public String memdrop(Model model) {
 		log.info(">>>>> POST : Memeber Drop page");
-		
+		model.addAttribute("key","drop");
 		return "member/drop";
 	}
+	
+	// POST로 변경
+	@GetMapping("/dropAction")
+	public String memDrop(HttpSession session, RedirectAttributes rttr) {
+		log.info(">>>>> GET: Member Drop Action");
+		String id = (String)session.getAttribute("userid");
+		
+		rttr.addFlashAttribute("id", id);
+		rttr.addFlashAttribute("key", "dropResult");
+		
+		mService.memDrop(session, id);
+		return "redirect:/";
+	}
+	
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		log.info(">>>>> POST : mypage");		
+		return "member/mypage";
+	}
+	
 	
 }
