@@ -1,6 +1,8 @@
 package com.playtime.service.Board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,22 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDTO> listAll() {		
+	public List<BoardDTO> listAll(int start, int end) {		
 		
-		List<BoardDTO>list = bDao.listAll();
-		for (BoardDTO bDTO : list) {
-			log.info("타긴타니?"+bDTO.toString());
-		}
-		return bDao.listAll();
+		Map<String, Object>map = new HashMap<>();
+		map.put("start",start);
+		map.put("end",end);
+		
+//		List<BoardDTO>list = bDao.listAll();
+//		for (BoardDTO bDTO : list) {
+//			log.info("타긴타니?"+bDTO.toString());
+//		}
+		return bDao.listAll(map);
+	}
+	
+	@Override
+	public int countArticle() {
+		return bDao.countArticle();
 	}
 
 

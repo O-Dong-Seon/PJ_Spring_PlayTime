@@ -175,7 +175,7 @@
 	
 	
 		.twincle_eff{
-			animation-name: twincle;
+			animation-name: twinkle;
 			animation-duration:1.2s;
 			animation-iteration-count:infinite;
 		}
