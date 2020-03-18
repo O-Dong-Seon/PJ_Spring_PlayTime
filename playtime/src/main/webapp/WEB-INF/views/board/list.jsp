@@ -5,7 +5,7 @@
     
 <!DOCTYPE html>
 <title>사용자 확인</title>
-	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<style type="text/css">
 	
 	html ,body{
@@ -172,7 +172,13 @@
 			animation-duration: 3s; /* 애니메이션의 실행 시간*/
 			margin-bottom: 10px;
 		}
-
+	
+	
+		.twincle_eff{
+			animation-name: twincle;
+			animation-duration:1.2s;
+			animation-iteration-count:infinite;
+		}
 		
 		@keyframes twinkle{
 			0% {opacity:0;}
@@ -182,14 +188,23 @@
 			to{opacity: 1;} */
 		}
 
-	
+		.new_color{
+			border: 1px solid tomato;
+			color: tomato;
+			padding: 3px 5px;
+			margin-left: 7px;
+			font-weight: bold;
+			font-size: 12px;
+			
+		}
 	
 
 	
 	</style>
 </head>
 <body class="not-support-flex">	
-
+	<jsp:useBean id="now" class="java.util.Date"/>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 	<div class="wrap">
 		<header id="playhead">
 			<h1>
@@ -225,36 +240,31 @@
 										<td scope="col">작성일</td>
 										<td scope="col">조회수</td>
 									</tr>
+								<c:forEach items="${map.list}" var="list">
+									
+									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
+										<tr>
+											<td scope="col">${list.bno}</td> <!--  번호 -->
+											<td scope="col"><a href="#" class="txt_conn">${list.title}</td>  <!--  제목 -->  <!-- ${list.title}<span> new</span> -->
+											<c:if test="${today == regdate}">
+												<span class = "new_color twincle_eff">N</span>
+											</c:if>
+											
+											<td scope="col">${list.writer}</td><!--  작성자 -->
+											<td scope="col">
+											<c:choose>
+												<c:when test="${today == regdate}">
+													<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss" />
+												</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" />
+												</c:otherwise>													
+											</c:choose></td><!--  작성일 -->
+											
+											<td scope="col">${list.viewcnt}</td><!--  조회수 -->
+										</tr>
+								</c:forEach>
 								
-								<tr>
-									<td scope="col">1</td> <!--  번호 -->
-									<td scope="col">디자인개어렵<span> new</span></td>  <!--  제목 -->
-									<td scope="col">오동동</td><!--  작성자 -->
-									<td scope="col">2020/3/17</td><!--  작성일 -->
-									<td scope="col">15</td><!--  조회수 -->
-								</tr>
-
-								<tr>
-									<td scope="col">2</td> <!--  번호 -->
-									<td scope="col">자바개어렵</td><!--  제목 -->
-									<td scope="col">비폭력간디</td><!--  작성자 -->
-									<td scope="col">2020/3/1</td><!--  작성일 -->
-									<td scope="col">50</td><!--  조회수 -->
-								</tr>
-								<tr>
-									<td scope="col">3</td> <!--  번호 -->
-									<td scope="col">스프링 개어렵</td><!--  제목 -->
-									<td scope="col">재훈</td><!--  작성자 -->
-									<td scope="col">2020/2/3</td><!--  작성일 -->
-									<td scope="col">45</td><!--  조회수 -->
-								</tr>
-								<tr>
-									<td scope="col">4</td> <!--  번호 -->
-									<td scope="col">공부 개어렵</td><!--  제목 -->
-									<td scope="col">보훈</td><!--  작성자 -->
-									<td scope="col">2020/1/1</td><!--  작성일 -->
-									<td scope="col">35</td><!--  조회수 -->
-								</tr>
 							</table>
 								<div side_box_list style="display: flex; justify-content: center">
 									

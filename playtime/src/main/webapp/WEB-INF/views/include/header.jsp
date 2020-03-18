@@ -622,6 +622,7 @@ div.header_content {
 										<li><a href="${path}/member/drop">회원탈퇴</a></li>
 									</c:if>									
 									<li><a href="${path}/member/mypage">마이페이지</a></li>
+									<li><a href="${path}/board/list">자유게시판</a></li>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>

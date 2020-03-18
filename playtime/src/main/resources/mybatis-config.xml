@@ -5,8 +5,9 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="com.playtime.domain.ProductDTO" alias="ProductDTO"></typeAlias>
-		<typeAlias type="com.playtime.domain.MemberDTO" alias="MemberDTO"></typeAlias>
+		<typeAlias type="com.playtime.domain.ProductDTO" alias="ProductDTO"/>
+		<typeAlias type="com.playtime.domain.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.playtime.domain.BoardDTO" alias="BoardDTO"/>
 	</typeAliases>
 	
 </configuration>
