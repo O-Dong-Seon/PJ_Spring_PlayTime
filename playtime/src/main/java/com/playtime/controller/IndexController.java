@@ -45,6 +45,8 @@ public class IndexController {
 		
 		
 		
+		
+		
 		// 2. View단에 출력할 베스트상품 5건
 		// model.addAttribute("BestPdt", iService.bestPdtList());
 		

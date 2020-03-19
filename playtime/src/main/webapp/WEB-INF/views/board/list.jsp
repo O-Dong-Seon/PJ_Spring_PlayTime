@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ include file="../include/header.jsp" %>
-    
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
-<title>사용자 확인</title>
-	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
-	<style type="text/css">
-	
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
+<style type="text/css">
 	html ,body{
 		height: 100%;
 	}
@@ -197,13 +198,25 @@
 			font-size: 12px;
 			
 		}
-	
+		
+		.check_color{
+			border:1px solid #3885CA;
+			background-color: #3885CA;
+			color:white;
+		}
+		
+		.search_box{
+			display: flex;
+			justify-content: flex-end;			
+		}
+</style>
 
-	
-	</style>
+
+
+
 </head>
-<body class="not-support-flex">	
-	<jsp:useBean id="now" class="java.util.Date"/>
+<body class="not-support-flex">
+<jsp:useBean id="now" class="java.util.Date"/>
 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 	<div class="wrap">
 		<header id="playhead">
@@ -225,10 +238,10 @@
 					
 					
 						<div class="side_button">
-							<a href="#">최신순</a>
-							<a href="#">조회순</a>
-							<a href="#">댓글순</a>
-							<a href="#">추천순</a>
+							<a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a>
+							<a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a>
+							<a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a>
+							<a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a>
 						</div>
 
 						<div class="board_wrap">
@@ -240,6 +253,16 @@
 										<td scope="col">작성일</td>
 										<td scope="col">조회수</td>
 									</tr>
+									
+									<div class="search_box">
+										<form action="${path}/board/list" method="GET">
+											<input class="search_txt" type="text" name="keyword" placeholder="검색어를 입력하세요">
+											<button type="submit" class="btn_search btn_search_board">
+												<i class="fas fa-search"></i>
+											</button>
+										</form>	
+									</div>
+									
 								<c:forEach items="${map.list}" var="list">
 									
 									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
@@ -266,16 +289,33 @@
 								</c:forEach>
 								
 							</table>
-								<div side_box_list style="display: flex; justify-content: center">
+								<div class="side_box_list" style="display: flex; justify-content: center">
 									
+																	
 										<div class="next_page" style="margin: auto;" >
-											<a href="#">←</a>
-											<a href="#">1</a>
-											<a href="#">2</a>
-											<a href="#">3</a>
-											<a href="#">4</a>
-											<a href="#">5</a>
-											<a href="#">→</a>
+											<c:if test="${map.pager.curBlock > 1}">
+												<a href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_left"><i class="fas fa-angle-left"></i></a>
+												<a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&keyword=${map.keyword}" class=""></a>
+												<span>...</span>
+											</c:if>
+											
+											<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+												<span>...</span>
+												<a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword=${map.keyword}"  class="">${map.pager.totPage}</a>
+												<a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_right"><i class="fas fa-angle-right"></i></a>
+											</c:if>
+																					
+										
+											<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}"> 
+												<c:choose>
+													<c:when test="${num == map.pager.curPage}">
+														<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="check_color">${num}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}">${num}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>	
 										</div>
 			                       
 
@@ -290,5 +330,25 @@
 						
 			</div>
 	</div>
-
+	
 </body>
+<script type="text/javascript">
+	$(function(){
+		var sort_option = '${map.sort_option}';
+		if(sort_option != null){
+			
+			// alert('#sort_' + sort_option);
+			
+			$('#sort_' + sort_option).css('color', 'navy');
+			$('#sort_' + sort_option).css('border-radius', '5px');
+			$('#sort_' + sort_option).css('font-weight', 'bold');
+		}
+		
+		
+		$('.write_btn').click(function(){
+			loaction.href="/playtime/board/write";
+		});
+	});
+
+</script>
+</html>
