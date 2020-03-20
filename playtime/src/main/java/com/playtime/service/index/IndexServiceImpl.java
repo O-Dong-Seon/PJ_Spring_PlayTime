@@ -25,7 +25,7 @@ public class IndexServiceImpl implements IndexService {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	/*
+	
 	ProductDAO pDao;	// 전역변수 : 값이 없으면 null로 초기화(객체니까)
 	@Autowired
 	public void newProductDAO() {
@@ -62,5 +62,5 @@ public class IndexServiceImpl implements IndexService {
 		
 		return pDao.newPdtList();
 	}
-	*/
+	
 }

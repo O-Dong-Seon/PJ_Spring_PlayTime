@@ -207,7 +207,29 @@
 		
 		.search_box{
 			display: flex;
-			justify-content: flex-end;			
+			justify-content: flex-end;		
+			height: 20px;	
+		}
+		.fa{
+			display: inline-block;
+  			font: normal normal normal 14px/1 FontAwesome;
+   			font-size: inherit;
+  			text-rendering: auto;
+  			-webkit-font-smoothing: antialiased;
+  			-moz-osx-font-smoothing: grayscale;
+  			transform: translate(0, 0);
+		}
+		.btn_clear{
+			color: #fff;
+   			background-color: #f0ad4e;
+    		border-color: #eea236;
+  			padding: 5px 10px;
+   			font-size: 12px;
+		    line-height: 1.5;
+   			border-radius: 1px;
+  			align-items: center;
+  			display: flex;
+
 		}
 </style>
 
@@ -255,14 +277,20 @@
 									</tr>
 									
 									<div class="search_box">
+				
 										<form action="${path}/board/list" method="GET">
-											<input class="search_txt" type="text" name="keyword" placeholder="검색어를 입력하세요">
+											<input class="search_txt" type="text" name="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
 											<button type="submit" class="btn_search btn_search_board">
-												<i class="fas fa-search"></i>
+												<i class="fas fa-search"></i>									
 											</button>
+											<a href="${path}/board/list" class="btn_clear"><i class="fa fa-times-circle">clear</i></a>
 										</form>	
 									</div>
-									
+									<c:if test="${!empty map.keyword}">
+										<div class="search_info">
+											<span class="search_name">${map.keyword} 검색결과 ${map.count} 건 검색되었습니다</span>
+										</div>
+									</c:if>
 								<c:forEach items="${map.list}" var="list">
 									
 									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>

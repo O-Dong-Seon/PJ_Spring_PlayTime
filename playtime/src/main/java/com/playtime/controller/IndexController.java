@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.playtime.service.index.IndexService;
+import com.playtime.service.index.IndexServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
