@@ -14,5 +14,12 @@ public interface BoardDAO {
 	
 	// 목록(페이지나누기, 검색 기능 포함)
 	public List<BoardDTO> listAll(@Param("map") Map<String, Object> map);
+	// 여기에 처리문이 엇으면
+	// mapper와 listAll를 찾아가라
+	
+	
+	// 
+	public BoardDTO viewArticle(int bno);
+	
 
 }

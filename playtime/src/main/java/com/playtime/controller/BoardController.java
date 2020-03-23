@@ -74,8 +74,12 @@ public class BoardController {
 		}
 		
 		@GetMapping("/view")
-		public String view(){
+		public String view(int bno, BoardDTO bDto, Model model){
 			log.info(">>>>> POST : view");
+			
+			bDto = bService.viewArticle(bno);
+			model.addAttribute("one", bDto);
 			return "board/view";
 		}
+		
 }

@@ -10,4 +10,7 @@ public interface BoardService {
 	
 	// 목록(페이지 나누기, 검색기능포함)
 	public List<BoardDTO> listAll(String sort_option,String Search_option, String keyword, int Start, int end);
+
+	public BoardDTO viewArticle(int bno);
+	
 }

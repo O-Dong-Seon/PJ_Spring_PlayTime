@@ -450,17 +450,17 @@
 						<h1 class="board_name">자유게시판<span class="board_list_btn"><a href="#" class="back_btn" style="width:56px; text-align: center;">목록</a></span>
 						</h1>
 				</div>		
-					<p class="board_title" style="margin-top:30px"><em>[질문글]</em>울면 근손실 난다는게 정말인가요?</p>	
+					<p class="board_title" style="margin-top:30px"><!-- <em>[질문글]</em>울면 근손실 난다는게 정말인가요? -->${one.title}</p>	
 					
 					<div class="info_wrap">
-						<span class="nick_name"><i class="fas fa-chess-knight"></i> 비폭력간디</span>
+						<span class="nick_name"><i class="fas fa-chess-knight"></i>${one.writer}</span>
 							<div class="sub_info">
 								<p>
-									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/eye_new.png" alt="본 유저수">15
+									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/eye_new.png" alt="본 유저수">${one.viewcnt}
 								</p>
 								<p class="time">
 									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/sub_date_new.png" alt="작성 시간">
-								15:01
+								${one.regdate}
 								</p>
 								<span class="short_cut">
 									<a href="#">
@@ -477,7 +477,7 @@
 					</div>
 				<div class="text_box">
 					<div class="info_img"></div>
-					<div class="board_text">눈물이 난다 눈물이</div>
+					<div class="board_text">${ont.content}</div>
 				</div>
 
 				<div class="button_wrap">
