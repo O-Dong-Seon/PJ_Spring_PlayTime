@@ -94,7 +94,7 @@
 	}
 	.compatible_wrap .pt_header h1 {
 		font-weight: normal;
-		font-size: 20px;
+		font-size: 30px;
 	}
 	
 	.board_wrap{
@@ -124,7 +124,7 @@
 		border-spacing: 0px;
 		line-height: 1.5;
 		color: #1e1e1e;
-		font-size: 17px;
+		font-size: 20px;
 		letter-spacing: 0px;
 	}
 
@@ -148,6 +148,7 @@
 	
 	.side_button {
 		margin-top: 10px;
+		margin-right: 50%;
 	}
 	
 	.side_button > a {
@@ -296,7 +297,7 @@
 									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 										<tr>
 											<td scope="col">${list.bno}</td> <!--  번호 -->
-											<td scope="col"><a href="#" class="txt_conn">${list.title}</td>  <!--  제목 -->  <!-- ${list.title}<span> new</span> -->
+											<td scope="col"><a href="${path}/board/view?bno=${list.bno}" class="txt_conn">${list.title}</td>  <!--  제목 -->  <!-- ${list.title}<span> new</span> -->
 											<c:if test="${today == regdate}">
 												<span class = "new_color twincle_eff">N</span>
 											</c:if>

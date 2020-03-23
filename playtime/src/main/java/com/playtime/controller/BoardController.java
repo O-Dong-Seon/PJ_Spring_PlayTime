@@ -72,4 +72,10 @@ public class BoardController {
 			// 4.list.jsp 화면단으로 이동
 			return "board/list";
 		}
+		
+		@GetMapping("/view")
+		public String view(){
+			log.info(">>>>> POST : view");
+			return "board/view";
+		}
 }

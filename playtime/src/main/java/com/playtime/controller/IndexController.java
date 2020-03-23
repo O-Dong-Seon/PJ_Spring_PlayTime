@@ -38,8 +38,8 @@ public class IndexController {
 		// 개발 종료시 삭제 할 것!
 //		session.removeAttribute("userid");
 //		session.removeAttribute("name");
-//		session.setAttribute("userid", "ehql1234");
-//		session.setAttribute("name", "오동동");
+		session.setAttribute("userid", "ehql1234");
+		session.setAttribute("name", "오동동");
 	 
 		// 출력할 화면을 결정
 		return "index";
