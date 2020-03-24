@@ -447,7 +447,10 @@
 		 <div class="content_wrap"> 
 		
 				<div class="board_contant">				
-						<h1 class="board_name">자유게시판<span class="board_list_btn"><a href="#" class="back_btn" style="width:56px; text-align: center;">목록</a></span>
+						<h1 class="board_name">자유게시판
+							<span class="board_list_btn">
+								<a href="${header.referer}" class="back_btn" style="width:56px; text-align: center;">목록</a>
+							</span>
 						</h1>
 				</div>		
 					<p class="board_title" style="margin-top:30px"><!-- <em>[질문글]</em>울면 근손실 난다는게 정말인가요? -->${one.title}</p>	
@@ -541,14 +544,14 @@
 <script type="text/javascript">
 	$(function(){
 		//삭제버튼 클릭시 모달창 open
-		$('delete_btn').click(function(){
-			$('.modal_msg_wrap').css('display', 'flex');
+		$('.delete_btn').click(function(){
+			$('.modal_wrap_msg').css('display', 'flex');
 		});
 	
 	
 		//삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
-		$(#modal_msg). click(function(){
-			alert("test");
+		$('#modal_msg_yes').click(function(){
+			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 	
 	});

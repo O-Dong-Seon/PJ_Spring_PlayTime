@@ -132,13 +132,14 @@
 			$('.modal_msg_yes').css('display','none');
 			$('.modal_msg_cancle').text('확 인');
 			$('.modal_wrap_msg').css('display', 'flex');  
+		
 		} else if(key == 'dropBoard'){
-			if('${one.replyCnt}' == 0){ //댓글이없는 경우
+			if('${one.replycnt}' == 0){ //댓글이없는 경우
 			$('.modal_msg_main_txt').text(dropBoard_main_txt);
 		} else {		//댓글이 있는경우
-			$('.modal_msg_main_txt').text(dropBoardNo_main_txt);
-			$('.modal_msg_yes').text('display', 'none');
-			$('.modal_msg_cancle').text('확인');
+			$('#modal_msg_main_txt').text(dropBoardNo_main_txt);
+			$('#modal_msg_yes').text('display', 'none');
+			$('#modal_msg_cancle').text('확인');
 			
 		}
 		
@@ -147,8 +148,8 @@
 		$('.modal_msg_close').on('click', function(){
 			$('.modal_wrap_msg').css('display','none');
 		});	
-		$('.modal_msg_cancle').on('click', function(){
-			$('.modal_msg_wrap').css('display', 'none');
+		$('#modal_msg_cancle').on('click', function(){
+			$('.modal_wrap_msg').css('display', 'none');
 		});
 	});
 	
