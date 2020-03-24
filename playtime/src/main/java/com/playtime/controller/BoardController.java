@@ -3,6 +3,8 @@ package com.playtime.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,10 +77,19 @@ public class BoardController {
 		}
 		
 		@GetMapping("/view/{bno}")
-		public String view(@PathVariable(value="bno") int bno, Model model){ // BoardDTO bDto,
+		public String view(@PathVariable(value="bno") int bno,
+													  Model model,
+													  HttpSession session){ // BoardDTO bDto,
 			log.info(">>>>> GET : Board Detail View Page");
 			
-//			bDto = bService.viewArticle(bno);
+			// 1.해당 bno의 조회수 +1  증가
+			bService.increaseViewcnt(session, bno);
+			
+
+			
+			//			bDto = bService.viewArticle(bno);
+			
+			// 2.DB에서 해당 bno정보를 get해서 View단으로 전송
 			model.addAttribute("one", bService.view(bno));
 			return "board/view";
 		}

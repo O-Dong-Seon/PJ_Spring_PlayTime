@@ -18,8 +18,11 @@ public interface BoardDAO {
 	// mapper와 listAll를 찾아가라
 	
 	
-	// 
+	// 상세 게시글 출
 	public BoardDTO view(int bno);
+	
+	// 조회수 증가
+	public void increaseViewcnt(@Param("bno") int bno);
 	
 
 }

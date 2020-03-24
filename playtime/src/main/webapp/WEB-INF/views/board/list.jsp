@@ -304,6 +304,7 @@
 											
 											<td scope="col">${list.writer}</td><!--  작성자 -->
 											<td scope="col">
+											
 											<c:choose>
 												<c:when test="${today == regdate}">
 													<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss" />

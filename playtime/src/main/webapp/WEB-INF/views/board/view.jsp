@@ -455,6 +455,7 @@
 					<div class="info_wrap">
 						<span class="nick_name"><i class="fas fa-chess-knight"></i>${one.writer}</span>
 							<div class="sub_info">
+								<p>${one.updatedate}"</p>
 								<p>
 									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/eye_new.png" alt="본 유저수">${one.viewcnt}
 								</p>
@@ -496,7 +497,7 @@
 					<li>
 						<div class="reply"><textarea style ="display:none" name="comment_content"></textarea>	
 						<p class="user_id"><i class="fas fa-chess-pawn"></i> 오른손엔 덤벨을 왼손엔 보충제를
-							<span>2020.03.22 오후 10:53:19</span>
+							<span>${one.regdate}</span>
 						</p>		
 						<div class="reply_text">네 사실입니다</div>		
 
