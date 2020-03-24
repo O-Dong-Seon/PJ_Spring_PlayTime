@@ -482,8 +482,10 @@
 
 				<div class="button_wrap">
 					<div class="answer_box"> 답변 </div>
-					<div class="update_box"> 수정 </div>
-					<div class="delete_box"> 삭제 </div>
+				<c:if test="${name == one.writer}">	
+					<a href="#" class="update_box update_btn"> 수정 </a>
+					<a href="#" class="delete_box delete_btn"> 삭제 </a>
+				</c:if>	
 				</div>
 
 				<div class="reply_wrap">

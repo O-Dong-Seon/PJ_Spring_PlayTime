@@ -19,7 +19,7 @@ public interface BoardDAO {
 	
 	
 	// 
-	public BoardDTO viewArticle(int bno);
+	public BoardDTO view(int bno);
 	
 
 }

@@ -297,7 +297,7 @@
 									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 										<tr>
 											<td scope="col">${list.bno}</td> <!--  번호 -->
-											<td scope="col"><a href="${path}/board/view?bno=${list.bno}" class="txt_conn">${list.title}</td>  <!--  제목 -->  <!-- ${list.title}<span> new</span> -->
+											<td scope="col"><a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title}</td>  <!--  제목 -->  <!-- ${list.title}<span> new</span> -->
 											<c:if test="${today == regdate}">
 												<span class = "new_color twincle_eff">N</span>
 											</c:if>
