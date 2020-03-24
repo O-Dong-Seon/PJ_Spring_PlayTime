@@ -543,5 +543,7 @@ form.pt_section {
 			$('#modal_wrap_msg').click(function(){
 			 	location.href='${path}/member/dropAction';				
 		});
+	});			
+			
 </script>
 </html>

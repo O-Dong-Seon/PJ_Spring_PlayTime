@@ -442,7 +442,7 @@
 	</style>
 </head>
 <body>
-	
+	<%@ include file="../include/modal.jsp"%>
 	<div class="wrap_head"></div>	
 		 <div class="content_wrap"> 
 		
@@ -535,11 +535,23 @@
 						</div>
 					</div>
 				</div>
-
-
-
 			</div>
 
-
 </body>
+<script type="text/javascript">
+	$(function(){
+		//삭제버튼 클릭시 모달창 open
+		$('delete_btn').click(function(){
+			$('.modal_msg_wrap').css('display', 'flex');
+		});
+	
+	
+		//삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
+		$(#modal_msg). click(function(){
+			alert("test");
+		});
+	
+	});
+	
+</script>
 </html>
