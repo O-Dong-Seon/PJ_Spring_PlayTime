@@ -368,7 +368,7 @@
 		height: 205px;
 	}
 	.bottom_text{
-		height: 170px;
+		height: 180px;
 		background-color: #e8eaee;
 		border:1px solid #dcdde1;
 	}
@@ -395,7 +395,7 @@
 		position: relative;
 		float: left;
 		margin-top: 11px;
-		width: 100%;
+		width: 16%;
 		height: 42px;
 		line-height: 42px;
 		margin-left: 83%;

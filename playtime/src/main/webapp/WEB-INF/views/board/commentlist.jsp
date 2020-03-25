@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,22 +8,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<jsp:useBean id="now" class="java.util.Date"/>
 	<div class="reply_wrap">
 		<div class="reply_title"><h2>댓글<span>${list.size()}</span></h2><span></span></div>
 		<input type="hidden" name="coment_page" value="1">
 	</div>
 		<div class="reply_ul">
 			<c:forEach items="${list}" var="reply">
-			<li>
-				<div class="reply"><textarea style ="display:none" name="comment_content"></textarea>	
-				<p class="user_id"><i class="fas fa-chess-pawn"></i>${reply.writer}
-					<span>${reply.regdate}</span>
-				</p>		
-				<div class="reply_text">${reply.content}</div>		
+				<li>
+					<div class="reply"><textarea style ="display:none" name="comment_content"></textarea>	
+						<p class="user_id"><i class="fas fa-chess-pawn"></i>${reply.writer}
+							<span>${reply.regdate}</span>
+						</p>
+						<div class="reply_text">${reply.content}</div>
 					</div>
-			</li>
+				</li>
 			</c:forEach>
+			
+			<c:if test="${list.size() == 0 }">		
+				<li>	
+					<div class="reply"><textarea style ="display:none" name="comment_content"></textarea>	
+						<p class="user_id"><i class="fas fa-crown"></i>관리자 오동선
+							<span>${reply.regdate}</span>
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+						</p>		
+					<div class="reply_text">등록된 게시글이 없습니다</div>		
+					</div>
+				</li>
+			</c:if>
+			
 			
 				
 			<div class="page_num">
@@ -39,18 +51,29 @@
 				</span>
 			</div>
 			
-			<div class="bottom_text_wrap">
-			<div class="bottom_text write">
-				<textarea name="comment" cols="30" rows="10" class="text" placeholder="로그인 후 이용해주세요" readonly="readonly"></textarea>
-				<div class="bottom_text_btn">
-					<div class="text_write_btn"></div>
-						<span class="font_number"><em></em>(0/200)</span>
-						<span><a class="write_btn" href="#">등록</a></span>
-				</div>
-			</div>
+			
+			<c:choose>
+				<c:when test="${empty userid }">
+					<span>로그인</span> 후에 댓글을 입력해주세요
+				</c:when>
+				<c:otherwise>
+					<div class="bottom_text_wrap">				
+						<div class="bottom_text write">
+							<span class="">${name}</span>
+							<textarea class="text"></textarea>
+							<div class="bottom_text_btn">
+								<div class="text_write_btn">
+									<span class="font_number"><em></em>(0/200)</span>
+									<span><button class="write_btn reply_btn">등록</button></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
+				
 		</div>
-	</div>
-	
+		
 </body>
 <script type="text/javascript">
 	$(function(){  // 1.페이지가 시작되자마자
@@ -71,6 +94,9 @@
 	
 	});
 	
+	$(document).on('click', '.reply_login_btn',function(){
+		$('.modal_wrap').css('display', 'flex');
+	});
 	
 	
 	// 댓글 목록 출력 함수
