@@ -8,6 +8,7 @@
 		<typeAlias type="com.playtime.domain.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="com.playtime.domain.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.playtime.domain.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.playtime.domain.ReplyDTO" alias="ReplyDTO"/>
 	</typeAliases>
 	
 </configuration>

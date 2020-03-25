@@ -1,8 +1,11 @@
 package com.playtime.service.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.playtime.domain.MemberDTO;
+import com.playtime.domain.ReplyDTO;
 
 public interface MemberService {
 	
@@ -26,4 +29,5 @@ public interface MemberService {
 	
 	//회원 탈퇴: useyn = n
 	public void memDrop(HttpSession session, String id);
+
 }
