@@ -11,6 +11,7 @@
 <jsp:useBean id="now" class="java.util.Date"/>
 	<div class="reply_wrap">
 		<div class="reply_title"><h2>댓글<span>${list.size()}</span></h2><span></span></div>
+		
 		<input type="hidden" name="coment_page" value="1">
 	</div>
 		<div class="reply_ul">
@@ -18,6 +19,9 @@
 				<li>
 					<div class="reply"><textarea style ="display:none" name="comment_content"></textarea>	
 						<p class="user_id"><i class="fas fa-chess-pawn"></i>${reply.writer}
+							<c:if test="${name == reply.writer}">
+								<button type="button" class="reply_del_btn" data_num="${reply.rno}">삭제</button>
+							</c:if>
 							<span>${reply.regdate}</span>
 						</p>
 						<div class="reply_text">${reply.content}</div>
@@ -53,22 +57,32 @@
 			
 			
 			<c:choose>
-				<c:when test="${empty userid }">
+				<c:when test="${empty userid}">
 					<span>로그인</span> 후에 댓글을 입력해주세요
 				</c:when>
+				
 				<c:otherwise>
-					<div class="bottom_text_wrap">				
-						<div class="bottom_text write">
-							<span class="">${name}</span>
-							<textarea class="text"></textarea>
-							<div class="bottom_text_btn">
-								<div class="text_write_btn">
-									<span class="font_number"><em></em>(0/200)</span>
-									<span><button class="write_btn reply_btn">등록</button></span>
+					<form class="frm_reply">
+						<input type="hidden" name="bno" class="reply_bno">
+						<input type="hidden" name="type" class="reply_type">
+						<input type="hidden" name="writer" class="reply_writer">
+							
+						<div class="bottom_text_wrap">				
+							<div class="bottom_text write">
+								<span class="">${name}</span>
+									<textarea class="text" name="content"></textarea>
+							<div>
+								<div class="bottom_text_btn">
+									<div class="err_msg"><span>댓글을 입력해주세요</span></div>
+									<div class="text_write_btn">
+										<span><button type="button" class="write_btn reply_btn">등록</button></span> <!-- form 태그 안에서 button -->
+									</div>
 								</div>
 							</div>
+							
+							</div>
 						</div>
-					</div>
+					</form>
 				</c:otherwise>
 			</c:choose>
 				
@@ -99,6 +113,8 @@
 	});
 	
 	
+	
+	
 	// 댓글 목록 출력 함수
 	function listReply(){   
 		$.ajax({
@@ -110,6 +126,8 @@
 			}	
 		});
 	}
+	
+		
 	
 </script>
 

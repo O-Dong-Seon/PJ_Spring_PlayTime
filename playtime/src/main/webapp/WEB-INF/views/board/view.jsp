@@ -392,16 +392,11 @@
 		resize: none;
 	}
 	.bottom_text_btn{
-		position: relative;
-		float: left;
-		margin-top: 11px;
-		width: 16%;
-		height: 42px;
-		line-height: 42px;
-		margin-left: 83%;
+		
+		
 	}
 	.bottom_text .text_write_btn{
-		float: right;
+		
 		margin-right: 9px;
 	}
 	.font_number{
@@ -418,7 +413,7 @@
 		border: 1px solid #6b717d;
 	}
 	.text_write_btn span{
-		float:left;
+		
 		margin-right: 0px;
 		font-size: 12px;
 		color: #666666;
@@ -435,6 +430,18 @@
 		display: inline-block;
 		line-height: 1;
 		float: left;
+	}
+	.err_msg{
+		display: block;
+		font-size: 16px;
+		color: red;
+	}
+	button.reply_del_btn{
+		color: #d95339;
+		border: 1px solid #d95339;
+		padding: 2px 5px;
+		margin-left: 100px;
+		border-radius: 2px;
 	}
 
 	
@@ -453,12 +460,13 @@
 							</span>
 						</h1>
 				</div>		
-					<p class="board_title" style="margin-top:30px"><!-- <em>[질문글]</em>울면 근손실 난다는게 정말인가요? -->${one.title}</p>	
+					<p class="board_title" style="margin-top:30px"><!-- <em>[질문글]</em>울면 근손실 난다는게 정말인가요? -->${one.bno} ${one.type} ${one.title}</p>	
 					
 					<div class="info_wrap">
 						<span class="nick_name"><i class="fas fa-chess-knight"></i>${one.writer}</span>
 							<div class="sub_info">
-								<p>${one.updatedate}"</p>
+								<p><i class="fas fa-pen"> 2</i></p>
+								<p>${one.updatedate}</p>
 								<p>
 									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/eye_new.png" alt="본 유저수">${one.viewcnt}
 								</p>
@@ -468,7 +476,7 @@
 								</p>
 								<span class="short_cut">
 									<a href="#">
-									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/link_copy_btn.png" alt="주소복사" title="주소복사">
+									<img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/link_copy_btn.png" alt="첨부파일" title="첨부파일">
 									</a>
 								</span>
 								<span class="report">
@@ -498,6 +506,7 @@
 </body>
 <script type="text/javascript">
 	$(function(){  // 1.페이지가 시작되자마자
+		setInterval(refreshReply(),5000); // 이 시간뒤에 한번 입력
 		
 		// alert('이전 URL: ${header.referer}');
 		listReply(); // 2.  얘네들을 호출하라
@@ -506,7 +515,8 @@
 		$('.delete_btn').click(function(){
 			$('.modal_wrap_msg').css('display', 'flex');
 		});
-	
+		
+		
 	
 		//삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
 		$('#modal_msg_yes').click(function(){
@@ -515,19 +525,107 @@
 	
 	});
 	
+		// 댓글 입력
+		
+		$(document).on('click', '.reply_login_btn',function(){
+			$('modal_wrap').css('display','flex');
+		});
+		
+		
+		// 1.사용자가 댓글을 입력하고 댓글등록버튼을 클릭
+		$(document).on('click', '.reply_btn', function(){
+			//2.reply_txt라고 변수에 사용자가 입력한 댓글 내용을
+			var reply_txt = $('.text').val();
+			console.log(reply_txt);
+			
+			//3.조건문 사용자가 입력한 값이'' 이거나 길이가 0이면
+			// 널값이기 때문에 댓글 입력부분 포커스를 이동
+			// 경고 메시지를 출력하고 여기서 이벤트를 종료
+			// 사용자가 입력한 값이 있으면 실행하지 않고 통과
+			
+			if(reply_txt == '' || reply_txt.length == 0 ){
+				$('.text').focus();
+			 	$('.err_msg').css('visibillty', 'visible'); 
+				return false;
+			}
+			
+			
+			
+			$('.reply_type').val('${one.type}');
+			$('.reply_writer').val('${name}');
+			$('.reply_bno').val('${one.bno}');
+			
+			$.ajax({
+				// 쿼리스트링 방식 (url에 데이터를 담아 보내는방식)
+				// url: '${path}/reply/insert'?bno=' + bno+'&type='+type+ '&wrtier='+name+'&content='+content,		
+				url: '${path}/reply/insert',				
+				type: 'POST',
+				// data: {"bno": bno, "type": type, "name": name, "content": content} JSOON방식 (KeyValue로 값을 넣어줌)
+				// KeyValue페어 ex) "bno" : bno (key값으로만 꺼낼수 있음)				
+				data: $('.frm_reply').serialize(), // seriallize의 역할 :쿼리스트링문 하나하나 쓸게 너무많으니 seriallize가 쿼리스트링을 자동으로 만들어서 사용
+				success: function(){
+					listReply();
+				},
+				error: function(){
+					alert('실패');
+				}
+				// 댓글 등록 할때 필요한 것들
+				// 1) type, content, writer, bno
+				
+			});
+			
+			
+		});
+		
+		$(document).on('click', '.reply_refresh_btn', function(){ // reply_btn
+			listReply();
+		});
+		
+		
+		
+		// 댓글 삭제!
+		$(document).on('click','.reply_del_btn' , function(){
+			var rno = $(this).attr('data_num');
+			var bno = '${one.bno}';
+			
+			$.ajax({
+				type:"POST",
+				url: '${path/reply/delete}',
+				data: {'rno' : rno, 'bno' : bno},
+				success: function(){
+					lsitReply();
+				}
+			});
+		
+		});
+		
+
 	
 	
 	// 댓글 목록 출력 함수
 	function listReply(){   
 		$.ajax({
-			type: "get",   // get방식으로 보내는데 
+			type: "GET",   // get방식으로 보내는데 
+			async: false,
 			url: "${path}/reply/list?bno=${one.bno}",  // reply 에 bno를 가지고 
 			success: function(result){
 				//result: reponseText 응답텍스트(html)
 				$("#listReply").html(result);
 			}	
 		});
+		
+		// 게시글 댓글수 수정!
+		 $('.replycnt > strong').text($('.replyListCnt').val);
 	}
 	
+	function refreshReply(){
+		alert('zzz');
+		listReply();
+	}
+	
+		
+	
+		
+		
 </script>
 </html>

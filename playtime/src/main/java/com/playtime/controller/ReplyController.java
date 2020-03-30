@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.playtime.domain.ReplyDTO;
 import com.playtime.service.reply.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +36,23 @@ public class ReplyController {
 		return "/board/commentlist";
 	}
 	
+	@ResponseBody
+	@PostMapping("/insert")
+	public void insert(ReplyDTO rDto) {
+		log.info(">>>>> POST: Reply Insert DB");
+		
+//		log.info(rDto.toString());
+		rService.insert(rDto);
+	}
+	
+	@ResponseBody
+	@PostMapping("/delete")
+	public void delete(ReplyDTO rDto) {
+		log.info(">>>>> POST: Reply Insert DB");
+		
+		rService.delete(rDto);
+	}
+	
+
 	
 }

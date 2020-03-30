@@ -30,9 +30,9 @@ public class LoginController {
 		
 		// 로그인
 		int result = IService.login(mDto, session);
-		log.info("결과는~~~~~~~" + result);
-		log.info("Sessing userid: "+(String) session.getAttribute("userid"));
-		log.info("Sessing name: "+(String) session.getAttribute("name"));
+//		log.info("결과는~~~~~~~" + result);
+//		log.info("Sessing userid: "+(String) session.getAttribute("userid"));
+//		log.info("Sessing name: "+(String) session.getAttribute("name"));
 		
 		return result;
 	}
